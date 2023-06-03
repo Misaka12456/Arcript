@@ -1,0 +1,69 @@
+{
+	"override_fonts": {
+		"Regular": "NotoSancCJKsc-Regular",
+		"Bold": "NotoSancCJKsc-Bold",
+		"Light": "NotoSancCJKsc-Light"
+	},
+	"texts": {
+		"compose.project.load.title": {
+			"value": "选择要加载的Arcript项目文件夹"
+		},
+		"compose.script.load.notfound": {
+			"value": "无法找到指定的视觉小说(VN)脚本文件 {0}"
+		},
+		"compose.script.load.notfound.last": {
+			"value": "无法找到上次打开的视觉小说(VN)脚本文件 {0}\n已自动切换至新的空白脚本文件"
+		},
+		"compose.script.leaveOpen": {
+			"value": "此操作将继续在后台保持当前脚本的打开状态。\n您可通过单击导航栏右侧的“返回”按钮返回到脚本。\n\n此操作不会关闭当前脚本。如果您想关闭脚本，请单击Arcript编辑器右上角的MDI“关闭”按钮。\n您确定要继续执行此操作吗？"
+		},
+		"compose.script.leavenOpen.title": {
+			"value": "在后台保持脚本打开状态"
+		},
+		"compose.browser.tree.loadFirstTip": {
+			"value": "请先加载项目"
+		},
+		"compose.sideright.inspector.title": {
+			"value": "检查器"
+		},
+		"compose.sideright.rawdata.title": {
+			"value": "原始数据"
+		},
+		"compose.sideright.inspector.type": {
+			"value": "文件类型"
+		},
+		"compose.sideright.inspector.type.unknown": {
+			"value": "<未知>"
+		},
+		"compose.scriptEditing.ops.title": {
+			"value": "脚本控制区"
+		},
+		"compose.scriptEditing.ops.pages.foremost": {
+			"value": "跳转到最前页"
+		},
+		"compose.scriptEditing.ops.pages.backmost": {
+			"value": "跳转到最后页"
+		},
+		"compose.scriptEditing.ops.pages.back": {
+			"value": "上一页"
+		},
+		"compose.scriptEditing.ops.pages.forward": {
+			"value": "下一页"
+		},
+		"compose.scriptEditing.ops.pages.status": {
+			"value": "第 {0} 页 / 共 {1} 页"
+		},
+		"compose.scriptEditing.ops.pages.splitTip": {
+			"value": "每页最多 {0} 条指令(超过后会自动分页)"
+		},
+		"compose.scriptEditing.ops.general.startDebug": {
+			"value": "启动脚本调试"
+		},
+		"compose.scriptEditing.ops.general.startWithoutDebug": {
+			"value": "启动脚本执行(不调试)"
+		},
+		"compose.scriptEditing.ops.general.buildScript": {
+			"value": "构建脚本"
+		}
+	}
+}

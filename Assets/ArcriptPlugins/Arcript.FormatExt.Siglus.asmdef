@@ -1,0 +1,16 @@
+{
+    "name": "Arcript.FormatExt.Siglus",
+    "rootNamespace": "Arcript.FormatExt.Siglus",
+    "references": [
+        "Arcript"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

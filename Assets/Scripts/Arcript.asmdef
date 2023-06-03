@@ -1,0 +1,22 @@
+{
+    "name": "Arcript",
+    "rootNamespace": "Arcript",
+    "references": [
+        "UniTask",
+        "UniTask.DOTween",
+        "UniTask.Linq",
+        "UniTask.TextMeshPro",
+        "SFB.Runtime",
+        "Unity.TextMeshPro",
+        "TreeView"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

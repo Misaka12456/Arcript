@@ -1,0 +1,90 @@
+{
+	"override_fonts": {
+		"Regular": "NotoSancCJKsc-Regular",
+		"Bold": "NotoSancCJKsc-Bold",
+		"Light": "NotoSancCJKsc-Light"
+	},
+	"texts": {
+		"compose.project.load.title": {
+			"value": "Select Arcript Project Folder to Load"
+		},
+		"compose.script.load.notfound": {
+			"value": "Cannot find the specified Arcript script file {0}"
+		},
+		"compose.script.load.notfound.last": {
+			"value": "Cannot find the last opened Arcript script file {0}\nAutomatically switched to a new blank script file"
+		},
+		"compose.script.leaveOpen": {
+			"value": "This action will leave current script open in the background.\nClick 'Return' button on the rightmost of the navigation bar to return to the script.\n\nThis action will NOT close the current script. If you want to close the script, please click the MDI 'Close' button on the right-top of Arcript Editor.\nAre you sure you want to continue?"
+		},
+		"compose.script.leavenOpen.title": {
+			"value": "Leave Script Open in the Background"
+		},
+		"compose.browser.tree.loadFirstTip": {
+			"value": "Please load project first"
+		},
+		"compose.sideright.inspector.title": {
+			"value": "Inspector"
+		},
+		"compose.sideright.rawdata.title": {
+			"value": "Raw Data"
+		},
+		"compose.sideright.inspector.type": {
+			"value": "Type"
+		},
+		"compose.sideright.inspector.type.plaintext": {
+			"value": "Text"
+		},
+		"compose.sideright.inspector.type.deflate": {
+			"value": "Deflate (Compressed Pack)"
+		},
+		"compose.sideright.inspector.type.audio": {
+			"value": "AudioClip"
+		},
+		"compose.sideright.inspector.type.video": {
+			"value": "VideoClip"
+		},
+		"compose.sideright.inspector.type.texture2d.normal": {
+			"value": "Image(Texture2D)"
+		},
+		"compose.sideright.inspector.type.texture2d.custom": {
+			"value": "{0} Image(Texture2D)"
+		},
+		"compose.sideright.inspector.type.script": {
+			"value": "Arcript VN Script"
+		},
+		"compose.sideright.inspector.type.unknown": {
+			"value": "<Unknown File Type>"
+		},
+		"compose.scriptEditing.ops.title": {
+			"value": "Script Control Area"
+		},
+		"compose.scriptEditing.ops.pages.foremost": {
+			"value": "First Page"
+		},
+		"compose.scriptEditing.ops.pages.backmost": {
+			"value": "Last Page"
+		},
+		"compose.scriptEditing.ops.pages.back": {
+			"value": "Previous"
+		},
+		"compose.scriptEditing.ops.pages.forward": {
+			"value": "Next"
+		},
+		"compose.scriptEditing.ops.pages.status": {
+			"value": "Page {0} of {1}"
+		},
+		"compose.scriptEditing.ops.pages.splitTip": {
+			"value": "Max {0} commands per page (automatically split if exceeded)"
+		},
+		"compose.scriptEditing.ops.general.startDebug": {
+			"value": "Start Debugging"
+		},
+		"compose.scriptEditing.ops.general.startWithoutDebug": {
+			"value": "Run Script (without Debugging)"
+		},
+		"compose.scriptEditing.ops.general.buildScript": {
+			"value": "Build"
+		}
+	}
+}
