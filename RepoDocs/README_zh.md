@@ -1,4 +1,4 @@
-<center>
+<div align="center">
 
 # Arcript
 
@@ -14,10 +14,9 @@
 
 中文版 | [English](../README.md)
 
-**版权提示: 请参阅[LICENSE](#license)部分以了解DMCA版权投诉请求的相关内容。**
+**版权提示: 请参阅[License](#开源协议)部分以了解DMCA版权投诉请求的相关内容。**
 
-</center>
----
+</div>
 
 ## 脚本格式
 

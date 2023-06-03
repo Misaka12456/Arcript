@@ -1,4 +1,4 @@
-<center>
+<div align="center">
 
 # Arcript
 
@@ -14,8 +14,7 @@ Powerful Not-Only-Arcaea[^2] Visual Novel (VN) Script Creator written in Unity a
 
 **Copyright Tip: For DMCA takedown request, please see [License](#license) section**
 
-</center>
----
+</div>
 
 ## Script Formats
 
