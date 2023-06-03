@@ -1,5 +1,5 @@
 ﻿#pragma warning disable IDE0004, IDE0051
-using Arcript.ArcVNScripts;
+using Arcript.Aspt.RawArcVNScripts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +14,7 @@ namespace Arcript.Gameplay
 {
 	public class ArptScriptSandBoxManager : Singleton<ArptScriptSandBoxManager>
 	{
-		private ArcVNScript script;
+		private RawArcVNScript script;
 		private ArcVNScriptCmdBase cmdCurrent;
 
 		private Dictionary<string, int> varDict = new Dictionary<string, int>();
@@ -24,7 +24,7 @@ namespace Arcript.Gameplay
 			AllowRepeatInit = true;
 		}
 
-		public void Load(ArcVNScript script)
+		public void Load(RawArcVNScript script)
 		{
 			this.script = script;
 			cmdCurrent = !script.OutOfRange(0) ? script.Commands[0] : (ArcVNScriptCmdBase)null;

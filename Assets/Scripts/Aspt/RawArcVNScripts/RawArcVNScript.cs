@@ -5,10 +5,10 @@ using System.ComponentModel;
 using System.Enhance;
 using UnityEngine;
 
-namespace Arcript.ArcVNScripts
+namespace Arcript.Aspt.RawArcVNScripts
 {
 	#region Enums
-	public enum VNScriptCmdType
+	public enum RawArcVNScriptCmdType
 	{
 		[Description("<invalid>")]
 		Unknown = -1,
@@ -59,19 +59,20 @@ namespace Arcript.ArcVNScripts
 		SingleOptionItem = 101,
 
 		#region Arcript+ Commands (下述命令针对纯视觉小说游戏(如Galgame)的Script)
-		[Description("videoFSPlay")]
-		VideoFullScreenPlay = 1000, // 全屏(这里的全屏指的是填满窗口的窗口全屏)播放视频
-									// 通常用于播放OP和ED等情况下
+		// 不再针对Arcaea版本的VN脚本兼容Arcript+的指令(迁移至Aspt)
+		//[Description("videoFSPlay")]
+		//VideoFullScreenPlay = 1000, // 全屏(这里的全屏指的是填满窗口的窗口全屏)播放视频
+		//							// 通常用于播放OP和ED等情况下
 
-		[Description("anchor")]
-		ScriptAnchor = 1001, // Script Anchor(锚点)，用于标记Script的某个位置，以便于在Script中跳转到该位置
-							 // 部分支持的视觉小说可使用该指令的方式增加对"BackLog"中指定内容的"Jump"支持
+		//[Description("anchor")]
+		//ScriptAnchor = 1001, // Script Anchor(锚点)，用于标记Script的某个位置，以便于在Script中跳转到该位置
+		//					 // 部分支持的视觉小说可使用该指令的方式增加对"BackLog"中指定内容的"Jump"支持
 
-		[Description("hScene")]
-		HSceneStartTag = 1002, // [必须和ScriptAnchor配合使用] HScene的开始标记(可使用该标记在Save & Load时将截图模糊化处理[可选])
+		//[Description("hScene")]
+		//HSceneStartTag = 1002, // [必须和ScriptAnchor配合使用] HScene的开始标记(可使用该标记在Save & Load时将截图模糊化处理[可选])
 
-		[Description("hSceneEnd")]
-		HSceneEndTag = 1003, // 必须和ScriptAnchor配合使用！！
+		//[Description("hSceneEnd")]
+		//HSceneEndTag = 1003, // 必须和ScriptAnchor配合使用！！
 		#endregion
 	}
 
@@ -112,7 +113,7 @@ namespace Arcript.ArcVNScripts
 	
 	public abstract class ArcVNScriptCmdBase
 	{
-		public abstract VNScriptCmdType Type { get; }
+		public abstract RawArcVNScriptCmdType Type { get; }
 
 		public abstract List<string> Arguments { get; }
 
@@ -143,7 +144,7 @@ namespace Arcript.ArcVNScripts
 	public class AudioPlayCmd : ArcVNScriptCmdBase
 	{
 		#region Overrided Properties
-		public override VNScriptCmdType Type => VNScriptCmdType.PlayAudio;
+		public override RawArcVNScriptCmdType Type => RawArcVNScriptCmdType.PlayAudio;
 		public override List<string> Arguments
 		{
 			get
@@ -170,7 +171,7 @@ namespace Arcript.ArcVNScripts
 	public class AudioStopCmd : ArcVNScriptCmdBase
 	{
 		#region Overrided Properties
-		public override VNScriptCmdType Type => VNScriptCmdType.StopAudio;
+		public override RawArcVNScriptCmdType Type => RawArcVNScriptCmdType.StopAudio;
 		public override List<string> Arguments => new List<string>() { { AudioPath }, { Duration.ToString() } };
 		#endregion
 
@@ -184,7 +185,7 @@ namespace Arcript.ArcVNScripts
 	public class TextLegacyShowCmd : ArcVNScriptCmdBase
 	{
 		#region Overrided Properties
-		public override VNScriptCmdType Type => VNScriptCmdType.ShowLegacyText;
+		public override RawArcVNScriptCmdType Type => RawArcVNScriptCmdType.ShowLegacyText;
 		public override List<string> Arguments => new List<string>() { { Text } };
 		#endregion
 
@@ -196,7 +197,7 @@ namespace Arcript.ArcVNScripts
 	public class PictureShowCmd : ArcVNScriptCmdBase
 	{
 		#region Overrided Properties
-		public override VNScriptCmdType Type => VNScriptCmdType.ShowPicture;
+		public override RawArcVNScriptCmdType Type => RawArcVNScriptCmdType.ShowPicture;
 		public override List<string> Arguments
 		{
 			get
@@ -244,7 +245,7 @@ namespace Arcript.ArcVNScripts
 	public class PictureHideCmd : ArcVNScriptCmdBase
 	{
 		#region Overrided Properties
-		public override VNScriptCmdType Type => VNScriptCmdType.HidePicture;
+		public override RawArcVNScriptCmdType Type => RawArcVNScriptCmdType.HidePicture;
 		public override List<string> Arguments
 		{
 			get
@@ -277,7 +278,7 @@ namespace Arcript.ArcVNScripts
 	public class PictureMoveCmd : ArcVNScriptCmdBase
 	{
 		#region Overrided Properties
-		public override VNScriptCmdType Type => VNScriptCmdType.MovePicture;
+		public override RawArcVNScriptCmdType Type => RawArcVNScriptCmdType.MovePicture;
 
 		public override List<string> Arguments => new List<string>()
 		{
@@ -302,7 +303,7 @@ namespace Arcript.ArcVNScripts
 	public class GeneralWaitCmd : ArcVNScriptCmdBase
 	{
 		#region Overrided Properties
-		public override VNScriptCmdType Type => VNScriptCmdType.WaitOrSleep;
+		public override RawArcVNScriptCmdType Type => RawArcVNScriptCmdType.WaitOrSleep;
 		public override List<string> Arguments => new List<string>() { { Duration.ToString() } };
 		#endregion
 
@@ -316,7 +317,7 @@ namespace Arcript.ArcVNScripts
 	public class TextShowCmd : ArcVNScriptCmdBase
 	{
 		#region Overrided Properties
-		public override VNScriptCmdType Type => VNScriptCmdType.ShowTextv2;
+		public override RawArcVNScriptCmdType Type => RawArcVNScriptCmdType.ShowTextv2;
 		public override List<string> Arguments
 		{
 			get
@@ -346,7 +347,7 @@ namespace Arcript.ArcVNScripts
 	public class TextShowSettingsCmd : ArcVNScriptCmdBase
 	{
 		#region Overrided Properties
-		public override VNScriptCmdType Type => VNScriptCmdType.SetTextv2Settings;
+		public override RawArcVNScriptCmdType Type => RawArcVNScriptCmdType.SetTextv2Settings;
 		public override List<string> Arguments => new List<string>() { { SpeakerBoxImagePath }, { MessageBoxImagePath } };
 		#endregion
 
@@ -360,7 +361,7 @@ namespace Arcript.ArcVNScripts
 	public class SubOptionItemCmd : ArcVNScriptCmdBase
 	{
 		#region Overrided Properties
-		public override VNScriptCmdType Type => VNScriptCmdType.SingleOptionItem;
+		public override RawArcVNScriptCmdType Type => RawArcVNScriptCmdType.SingleOptionItem;
 		public override List<string> Arguments
 		{
 			get
@@ -401,7 +402,7 @@ namespace Arcript.ArcVNScripts
 	public class BranchSelectCmd : ArcVNScriptCmdBase
 	{
 		#region Overrided Properties
-		public override VNScriptCmdType Type => VNScriptCmdType.ShowBranchSelection;
+		public override RawArcVNScriptCmdType Type => RawArcVNScriptCmdType.ShowBranchSelection;
 		public override List<string> Arguments
 		{
 			get
@@ -434,7 +435,7 @@ namespace Arcript.ArcVNScripts
 	public class VarDefineCmd : ArcVNScriptCmdBase
 	{
 		#region Overrided Properties
-		public override VNScriptCmdType Type => VNScriptCmdType.VarDefine;
+		public override RawArcVNScriptCmdType Type => RawArcVNScriptCmdType.VarDefine;
 		public override List<string> Arguments => new List<string>()
 		{
 			{ VariableName },
@@ -453,7 +454,7 @@ namespace Arcript.ArcVNScripts
 	public class VarSetCmd : ArcVNScriptCmdBase
 	{
 		#region Overrided Properties
-		public override VNScriptCmdType Type => VNScriptCmdType.VarSet;
+		public override RawArcVNScriptCmdType Type => RawArcVNScriptCmdType.VarSet;
 		public override List<string> Arguments => new List<string>()
 		{
 			{ TargetVariableName },
@@ -472,7 +473,7 @@ namespace Arcript.ArcVNScripts
 	public class IfGotoCheckCmd : ArcVNScriptCmdBase
 	{
 		#region Overrided Properties
-		public override VNScriptCmdType Type => VNScriptCmdType.IfGotoCheck;
+		public override RawArcVNScriptCmdType Type => RawArcVNScriptCmdType.IfGotoCheck;
 		public override List<string> Arguments => new List<string>()
 		{
 			{ $"{Condition.FuncName}({string.Join(",", Condition.Arguments)})" },
@@ -491,7 +492,7 @@ namespace Arcript.ArcVNScripts
 	public class LabelDefineCmd : ArcVNScriptCmdBase
 	{
 		#region Overrided Properties
-		public override VNScriptCmdType Type => VNScriptCmdType.LabelDefine;
+		public override RawArcVNScriptCmdType Type => RawArcVNScriptCmdType.LabelDefine;
 		public override List<string> Arguments => new List<string>()
 		{
 			{ LabelName },
@@ -505,7 +506,7 @@ namespace Arcript.ArcVNScripts
 	}
 	#endregion
 
-	public class ArcVNScript : IEnumerable, IEnumerable<ArcVNScriptCmdBase>
+	public class RawArcVNScript : IEnumerable, IEnumerable<ArcVNScriptCmdBase>
 	{
 		public List<ArcVNScriptCmdBase> Commands { get; set; } = new List<ArcVNScriptCmdBase>();
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Arcript.ArcVNScripts
+namespace Arcript.Aspt.RawArcVNScripts
 {
 	public static class StringParserExtension
 	{

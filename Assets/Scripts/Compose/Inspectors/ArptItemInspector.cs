@@ -1,4 +1,4 @@
-﻿using Arcript.ArcVNScripts;
+﻿using Arcript.Aspt.RawArcVNScripts;
 using Arcript.Compose.Script;
 using System;
 using System.Enhance.Unity;
@@ -54,23 +54,23 @@ namespace Arcript.Compose.Inspectors
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
 	public class CmdInspectExportAttribute : Attribute
 	{
-		public VNScriptCmdType CmdType { get; private set; }
+		public RawArcVNScriptCmdType CmdType { get; private set; }
 
 		/// <summary>
 		/// 表示该命令的指令代码名称(在脚本文件中的指令代码)<br />
-		/// 如 <see cref="TextShowCmd"/> 在脚本文件中格式为<c>"say+ 参数..."</c>，则若 <see cref="CmdType"/> 为 <see cref="VNScriptCmdType.ShowTextv2"/>，则该属性应为 <c>"say+"</c>
+		/// 如 <see cref="TextShowCmd"/> 在脚本文件中格式为<c>"say+ 参数..."</c>，则若 <see cref="CmdType"/> 为 <see cref="RawArcVNScriptCmdType.ShowTextv2"/>，则该属性应为 <c>"say+"</c>
 		/// </summary>
 		public string CmdCodeName { get; private set; }
 
 		[Preserve]
-		public CmdInspectExportAttribute(VNScriptCmdType type, string codePrefix)
+		public CmdInspectExportAttribute(RawArcVNScriptCmdType type, string codePrefix)
 		{
 			CmdType = type;
 			CmdCodeName = codePrefix;
 		}
 	}
 
-	[CmdInspectExport(VNScriptCmdType.ShowTextv2, "say+")]
+	[CmdInspectExport(RawArcVNScriptCmdType.ShowTextv2, "say+")]
 	public class ArptInspectCSayPlusPnl : InspectCmdPanelBase
 	{
 		// C = Command, "SayPlus" is "say+" command.

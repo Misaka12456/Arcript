@@ -1,4 +1,4 @@
-﻿using Arcript.ArcVNScripts;
+﻿using Arcript.Aspt.RawArcVNScripts;
 using Arcript.Compose;
 using Arcript.Compose.UI;
 using Arcript.Data;
@@ -23,7 +23,7 @@ namespace Arcript
 		};
 
 		[HideInInspector] public ArcriptProject CurrentProject;
-		[HideInInspector] public ArcVNScript CurrentScript;
+		[HideInInspector] public RawArcVNScript CurrentScript;
 		[HideInInspector] public string CurrentProjectFolder;
 		[HideInInspector] public string CurrentScriptRelativePath;
 
@@ -81,7 +81,7 @@ namespace Arcript
 				{
 					if (File.Exists(CurrentProject.LastOpenScript))
 					{
-						CurrentScript = JsonConvert.DeserializeObject<ArcVNScript>(File.ReadAllText(Path.Combine(CurrentProjectFolder, CurrentProject.LastOpenScript), Encoding.UTF8));
+						CurrentScript = JsonConvert.DeserializeObject<RawArcVNScript>(File.ReadAllText(Path.Combine(CurrentProjectFolder, CurrentProject.LastOpenScript), Encoding.UTF8));
 						CurrentScriptRelativePath = CurrentProject.LastOpenScript;
 						string scriptName = Path.GetFileNameWithoutExtension(Path.Combine(CurrentProjectFolder, CurrentProject.LastOpenScript));
 						ArcriptComposeManager.Instance.SetTitle(projName: CurrentProject.ProjectName, scriptName: scriptName);

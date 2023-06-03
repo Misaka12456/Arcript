@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Arcript.ArcVNScripts
+namespace Arcript.Aspt.RawArcVNScripts
 {
 	/// <summary>
 	/// 表示一个视觉小说脚本(VN Script)解析过程中引发的异常。

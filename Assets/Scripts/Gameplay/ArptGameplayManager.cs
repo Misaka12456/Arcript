@@ -1,4 +1,4 @@
-﻿using Arcript.ArcVNScripts;
+﻿using Arcript.Aspt.RawArcVNScripts;
 using Cysharp.Threading.Tasks;
 using System.Enhance.Unity;
 using UnityEngine;
@@ -13,7 +13,7 @@ namespace Arcript.Gameplay
 		public AudioSource audioBGM, audioEffect;
 		#endregion
 
-		public ArcVNScript Script { get; private set; }
+		public RawArcVNScript Script { get; private set; }
 		public bool Blocking { get; private set; } = false;
 		public bool IgnoreInput { get; set; } = false;
 
@@ -40,7 +40,7 @@ namespace Arcript.Gameplay
 			}
 		}
 
-		public void Load(ArcVNScript script)
+		public void Load(RawArcVNScript script)
 		{
 			ArptScriptSandBoxManager.Instance.Load(script);
 			Script = script;

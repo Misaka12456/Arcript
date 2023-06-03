@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Arcript.ArcVNScripts
+namespace Arcript.Aspt.RawArcVNScripts
 {
 	public class StringParser
 	{

@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace Arcript.ArcVNScripts
+namespace Arcript.Aspt.RawArcVNScripts
 {
 	public class ArcVNScriptParser
 	{
@@ -20,7 +20,7 @@ namespace Arcript.ArcVNScripts
 			parser = new StringParser(line.Trim());
 		}
 
-		public ArcVNScriptCmdBase Parse(int line, out VNScriptCmdType type)
+		public ArcVNScriptCmdBase Parse(int line, out RawArcVNScriptCmdType type)
 		{
 			string cmd = parser.ReadString(ternimator: StringParser.Space);
 			if (string.IsNullOrEmpty(cmd)) throw new ArcriptScriptParseException(tokenChar: parser.Current.Length > 0 ? parser.Current[0] : '\0', line: line, column: 0);
@@ -28,49 +28,49 @@ namespace Arcript.ArcVNScripts
 			{
 				#region Basic Commands (7)
 				case "play": // 播放音频
-					type = VNScriptCmdType.PlayAudio;
+					type = RawArcVNScriptCmdType.PlayAudio;
 					return ParseAudioPlay(line);
 				case "stop": // 停止音频
-					type = VNScriptCmdType.StopAudio;
+					type = RawArcVNScriptCmdType.StopAudio;
 					return ParseAudioStop(line);
 				case "say": // 显示/隐藏文本(旧版)
-					type = VNScriptCmdType.ShowLegacyText;
+					type = RawArcVNScriptCmdType.ShowLegacyText;
 					return ParseTextLegacyShow(line);
 				case "show": // 显示图片
-					type = VNScriptCmdType.ShowPicture;
+					type = RawArcVNScriptCmdType.ShowPicture;
 					return ParsePictureShow(line);
 				case "hide": // 隐藏图片
-					type = VNScriptCmdType.HidePicture;
+					type = RawArcVNScriptCmdType.HidePicture;
 					return ParsePictureHide(line);
 				case "move": // 移动图片
-					type = VNScriptCmdType.MovePicture;
+					type = RawArcVNScriptCmdType.MovePicture;
 					return ParsePictureMove(line);
 				case "wait": // 等待/暂时暂停执行(一段时间)
-					type = VNScriptCmdType.WaitOrSleep;
+					type = RawArcVNScriptCmdType.WaitOrSleep;
 					return ParseWait(line);
 				#endregion
 
 				#region Advanced Commands (7)
 				case "say+": // 显示/隐藏文本(支持显示说话者(Speaker))
-					type = VNScriptCmdType.ShowTextv2;
+					type = RawArcVNScriptCmdType.ShowTextv2;
 					return ParseTextShow(line);
 				case "say+set": // 设置新版文本显示的图片资源(说话者名称框和文本框)
-					type = VNScriptCmdType.SetTextv2Settings;
+					type = RawArcVNScriptCmdType.SetTextv2Settings;
 					return ParseTextShowSettings(line);
 				case "selectSay": // 选择支(包括内嵌的选项的"select"指令)
-					type = VNScriptCmdType.ShowBranchSelection;
+					type = RawArcVNScriptCmdType.ShowBranchSelection;
 					return ParseBranchSelect(line);
 				case "var": // 定义变量
-					type = VNScriptCmdType.VarDefine;
+					type = RawArcVNScriptCmdType.VarDefine;
 					return ParseVarDefine(line);
 				case "set": // 设置变量的值
-					type = VNScriptCmdType.VarSet;
+					type = RawArcVNScriptCmdType.VarSet;
 					return ParseVarSet(line);
 				case "if": // 如果跳转(If-Goto)条件判断
-					type = VNScriptCmdType.IfGotoCheck;
+					type = RawArcVNScriptCmdType.IfGotoCheck;
 					return ParseIfGotoCheck(line);
 				case "label": // 定义标签(显式声明)
-					type = VNScriptCmdType.LabelDefine;
+					type = RawArcVNScriptCmdType.LabelDefine;
 					return ParseLabelDefine(line);
 				#endregion
 				default:
@@ -78,7 +78,7 @@ namespace Arcript.ArcVNScripts
 			}
 		}
 
-		private ArcVNScriptCmdBase ParseFallback(int line, out VNScriptCmdType type)
+		private ArcVNScriptCmdBase ParseFallback(int line, out RawArcVNScriptCmdType type)
 		{
 			#region Fallback Commands
 			#region Label / 定义标签(隐式声明)
@@ -90,7 +90,7 @@ namespace Arcript.ArcVNScripts
 				var groups = simpleLabelRegex.Match(parser.FullStr).Groups;
 				string labelName = groups["labelName"].Value;
 				Warnings.Add((line, 0), $"Parsing Label: {labelName} as Simple Label Format...");
-				type = VNScriptCmdType.LabelDefine;
+				type = RawArcVNScriptCmdType.LabelDefine;
 				return ParseLabelDefine(line);
 			}
 			#endregion
@@ -109,7 +109,7 @@ namespace Arcript.ArcVNScripts
 			}
 			cmdTypeStr = cmdTypeStr.Replace("'", @"\'"); // 转义单引号，防止与警告信息的单引号混淆
 			Warnings.Add((line, 0), $"Script command type '{cmdTypeStr}' is not known by us, so it will be ignored.");
-			type = VNScriptCmdType.Unknown;
+			type = RawArcVNScriptCmdType.Unknown;
 			return null;
 			#endregion
 		}
