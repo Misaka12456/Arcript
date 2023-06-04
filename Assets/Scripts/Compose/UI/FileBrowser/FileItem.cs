@@ -7,6 +7,7 @@ using TMPText = TMPro.TextMeshProUGUI;
 using System.Collections.Generic;
 using Arcript.Data;
 using Arcript.I18n;
+using System.Enhance.Win32;
 
 namespace Arcript.Compose.UI
 {
@@ -26,7 +27,7 @@ namespace Arcript.Compose.UI
 		{
 			".zip", ".rar", ".7z", ".tar", ".gz", ".xz",
 		};
-		private readonly static string[] ScriptFileExt = new string[] { ".arst" };
+		private readonly static string[] ScriptFileExt = new string[] { ".aspt" };
 		// arst = [Ar]cript [S]crip[t] or [Ar]cript [S]cript [T]ext
 
 		[Header("General")]
@@ -185,6 +186,30 @@ namespace Arcript.Compose.UI
 			}
 			customImgTypeFormat = null;
 			return null;
+		}
+
+		private void OnDoubleClick()
+		{
+			string absPath = Path.Combine(ArptProjectManager.Instance.CurrentProjectFolder, relativePath);
+			bool isFolder = File.GetAttributes(absPath).HasFlag(FileAttributes.Directory);
+			if (isFolder)
+			{
+				ArptFolderBrowserManager.Instance.NavigateTo(relativePath);
+			}
+			else
+			{
+				bool isScript = ScriptFileExt.Contains(Path.GetExtension(absPath).ToLower());
+				if (isScript)
+				{
+					ArptScriptEditorManager.Instance.OpenScriptEditor(relativePath);
+				}
+				else
+				{
+#if UNITY_STANDALONE_WIN
+					Win32APIHelper.ShellExecute(absPath, Win32APIHelper.ShowCommands.SW_SHOWDEFAULT | Win32APIHelper.ShowCommands.SW_NORMAL);
+#endif
+				}
+			}
 		}
 	}
 }

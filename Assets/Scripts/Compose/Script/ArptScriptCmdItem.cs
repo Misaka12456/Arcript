@@ -1,5 +1,7 @@
-﻿using Arcript.Aspt.RawArcVNScripts;
+﻿using Arcript.Aspt;
+using Arcript.Aspt.RawArcVNScripts;
 using Arcript.Compose.Inspectors;
+using System.Enhance.Unity;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +23,20 @@ namespace Arcript.Compose.Script
 				if (!isOn) return;
 				ArptItemInspector.Instance.SetCmdInfo(this, refCmd);
 			});
+		}
+	}
+
+	public class ArptScriptEditorManager : Singleton<ArptScriptEditorManager>
+	{
+
+		protected override void SingletonAwake()
+		{
+			AllowRepeatInit = true;
+		}
+
+		public void LoadScript(ArcriptScript script)
+		{
+			
 		}
 	}
 }

@@ -49,11 +49,16 @@ namespace Arcript.Compose.UI
 		{
 			var item = go.GetComponent<TreeViewItem>();
 			string itemRelativePath = (string)item.Data.Tag;
-			ArptBreadCrumbNavigator.Instance.NavigateTo(itemRelativePath);
 			if (item.Data.IsRoot)
 			{
 				Debug.Log($"Project Root Folder (Absolute Path): {ArptProjectManager.Instance.CurrentProjectFolder}");
 			}
+			NavigateTo(itemRelativePath);
+		}
+
+		public void NavigateTo(string relativePath)
+		{
+			ArptBreadCrumbNavigator.Instance.NavigateTo(relativePath);
 			GenerateFileList();
 		}
 
