@@ -1,4 +1,5 @@
-﻿using YamlDotNet.Serialization;
+﻿using System.Text;
+using YamlDotNet.Serialization;
 
 namespace Arcript.Aspt
 {
@@ -6,12 +7,19 @@ namespace Arcript.Aspt
 	public class AsptLabelCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override AsptCmdType Type => AsptCmdType.LabelDefine;
+		public override string TypeStr => "label";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock => false; // 所有的"定义"都不会block(包括标签和锚点)
 
 		[YamlMember(Alias = "LabelName")]
 		public string LabelName { get; set; }
+
+		public override string ToItemShortString()
+		{
+			var sb = new StringBuilder("<b>label</b> ");
+			sb.Append(LabelName);
+			return sb.ToString();
+		}
 	}
 }

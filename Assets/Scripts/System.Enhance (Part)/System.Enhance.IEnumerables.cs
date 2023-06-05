@@ -1,5 +1,7 @@
 ﻿//namespace Arcript.Assets.Scripts.System.Enhance__Part_
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace System.Enhance
 {
@@ -41,6 +43,23 @@ namespace System.Enhance
 				disposable?.Dispose();
 			}
 			return true;
+		}
+
+		public static IEnumerable<T> PickRange<T>(this IEnumerable<T> source, int startIdx, int count)
+		{
+			int i = 0, size = source.Count();
+			foreach (T item in source)
+			{
+				if (i >= startIdx && i < startIdx + count)
+				{
+					yield return item;
+				}
+				else if (i >= startIdx + count || i >= size)
+				{
+					yield break;
+				}
+				i++;
+			}
 		}
 	}
 }

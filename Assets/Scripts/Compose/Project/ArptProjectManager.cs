@@ -12,14 +12,17 @@ using System;
 using System.Enhance.Unity;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 using YamlDotNet.Core;
 using YamlDotNet.RepresentationModel;
 using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
-namespace Arcript
+namespace Arcript.Compose
 {
 	public class ArptProjectManager : Singleton<ArptProjectManager>
 	{
@@ -131,16 +134,28 @@ namespace Arcript
 
 		public async UniTask LoadScript(string scriptPath)
 		{
-			var builder = new DeserializerBuilder();
-			foreach (var c in Converters)
+			var ptConverter = new PolymorphicTypeConverter();
+			var firstBuilder = new DeserializerBuilder()
+			//.WithNamingConvention(CamelCaseNamingConvention.Instance)
+			.WithTypeConverter(ptConverter);
+
+			var cmdBaseType = typeof(AsptCmdBase);
+			var cmdTypes = Assembly.GetExecutingAssembly().GetTypes()
+				.Where(t => cmdBaseType.IsAssignableFrom(t) && !t.IsAbstract);
+
+			// Register all found types with the polymorphic type converter
+			var tConverterBase = firstBuilder.Build();
+
+			foreach (var cmdType in cmdTypes)
 			{
-				builder.WithTypeConverter(c);
+				ptConverter.RegisterType(cmdType);
 			}
-			var reader = builder.Build();
+			var reader = firstBuilder.Build();
 			FileStream fs = null;
 			StreamReader sr = null;
 			try
 			{
+				CurrentProject.LastOpenScript = scriptPath;
 				sr = new StreamReader(new MemoryStream(), Encoding.UTF8); // 默认即leaveOpen = false
 				fs = File.OpenRead(Path.Combine(CurrentProjectFolder, CurrentProject.LastOpenScript));
 				await fs.CopyToAsync(sr.BaseStream);
@@ -149,6 +164,7 @@ namespace Arcript
 				CurrentScriptRelativePath = CurrentProject.LastOpenScript;
 				string scriptName = Path.GetFileNameWithoutExtension(Path.Combine(CurrentProjectFolder, CurrentProject.LastOpenScript));
 				ArcriptComposeManager.Instance.SetTitle(projName: CurrentProject.ProjectName, scriptName: scriptName);
+				ArptScriptEditorManager.Instance.LoadScript(CurrentScript);
 			}
 			catch (Exception ex)
 			{

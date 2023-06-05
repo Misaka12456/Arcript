@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using YamlDotNet.Serialization;
 
 namespace Arcript.Aspt
@@ -7,7 +8,7 @@ namespace Arcript.Aspt
 	public class AsptBranchSelectOptionCmd : AsptCmdBase, ISubCmd
 	{
 		[YamlMember(Alias = "Type")]
-		public override AsptCmdType Type => AsptCmdType.SubBranchOptionItem;
+		public override string TypeStr => "select";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock => false; // 都不是完整的指令何来Block一说
@@ -26,5 +27,11 @@ namespace Arcript.Aspt
 
 		[YamlMember(Alias = "Requirements", DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
 		public AsptVarCheckCmd[] Requirements { get; set; } = Array.Empty<AsptVarCheckCmd>();
+
+		public override string ToItemShortString()
+		{
+			var sb = new StringBuilder(FriendlyText).Append(" (").Append(OptionId).Append(")");
+			return sb.ToString();
+		}
 	}
 }

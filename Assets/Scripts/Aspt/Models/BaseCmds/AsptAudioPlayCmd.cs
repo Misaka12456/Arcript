@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Text;
 using UnityEngine.Scripting;
 using YamlDotNet.Serialization;
 
@@ -8,7 +9,7 @@ namespace Arcript.Aspt
 	public class AsptAudioPlayCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override AsptCmdType Type => AsptCmdType.PlayAudio;
+		public override string TypeStr => "play";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock { get; set; }
@@ -32,6 +33,15 @@ namespace Arcript.Aspt
 			AudioPath = audioPath;
 			Volume = volume;
 			IsLoop = isLoop;
+		}
+
+		public override string ToItemShortString()
+		{
+			var sb = new StringBuilder("<b>play</b> ");
+			sb.Append(AudioPath).Append(" | ");
+			sb.Append("volume = ").Append(Volume).Append(" | ");
+			sb.Append("loop = ").Append(IsLoop);
+			return sb.ToString();
 		}
 	}
 }

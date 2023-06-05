@@ -1,4 +1,5 @@
-﻿using YamlDotNet.Serialization;
+﻿using System.Text;
+using YamlDotNet.Serialization;
 
 namespace Arcript.Aspt
 {
@@ -6,7 +7,7 @@ namespace Arcript.Aspt
 	public class AsptPictureHideCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override AsptCmdType Type => AsptCmdType.HidePicture;
+		public override string TypeStr => "hide";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock { get; set; }
@@ -16,5 +17,13 @@ namespace Arcript.Aspt
 
 		[YamlMember(Alias = "Transition")]
 		public Transition Transition { get; set; }
+
+		public override string ToItemShortString()
+		{
+			var sb = new StringBuilder("<b>hide</b> ");
+			sb.Append(ImagePath).Append(" | ");
+			sb.Append("transition = ").Append(Transition.ToItemShortString());
+			return sb.ToString();
+		}
 	}
 }

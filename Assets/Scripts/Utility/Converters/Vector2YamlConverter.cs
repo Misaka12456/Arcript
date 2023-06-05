@@ -17,7 +17,7 @@ namespace Arcript.Utility
 			var parts = value.Split(',');
 			if (parts.Length != 2)
 			{
-				throw new InvalidOperationException($"Invalid Vector2 format: {value}");
+				Debug.LogError($"Invalid Vector2 format: {value}");
 			}
 			return new Vector2(float.Parse(parts[0]), float.Parse(parts[1]));
 		}

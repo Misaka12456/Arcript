@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using YamlDotNet.Serialization;
 
 namespace Arcript.Aspt
@@ -7,7 +8,7 @@ namespace Arcript.Aspt
 	public class AsptTextShowCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override AsptCmdType Type => AsptCmdType.ShowTextv2;
+		public override string TypeStr => "say+";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock { get; set; }
@@ -38,5 +39,12 @@ namespace Arcript.Aspt
 
 		[YamlMember(Alias = "Fallback", DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
 		public bool FallbackToLegacy { get; set; } = false;
+
+		public override string ToItemShortString()
+		{
+			var sb = new StringBuilder("<b>say+</b> ");
+			sb.Append(Speaker).Append(' ').Append(Content.Replace("\n", string.Empty));
+			return sb.ToString();
+		}
 	}
 }

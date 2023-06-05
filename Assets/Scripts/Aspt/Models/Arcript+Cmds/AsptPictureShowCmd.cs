@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 using YamlDotNet.Serialization;
 
@@ -9,7 +10,7 @@ namespace Arcript.Aspt
 	public class AsptPictureShowCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override AsptCmdType Type => AsptCmdType.ShowPicture;
+		public override string TypeStr => "show";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock { get; set; }
@@ -18,13 +19,22 @@ namespace Arcript.Aspt
 		public string ImagePath { get; set; }
 
 		[YamlMember(Alias = "Size")]
-		public Vector2 Size { get; set; }
+		public float[] SizeArray { get; set; }
+
+		[YamlIgnore]
+		public Vector2 Size { get => new Vector2(SizeArray[0], SizeArray[1]); set => SizeArray = new float[] { value.x, value.y }; }
 
 		[YamlMember(Alias = "StartPoint")]
-		public Vector2 StartPoint { get; set; }
+		public float[] StartPointArray { get; set; }
+
+		[YamlIgnore]
+		public Vector2 StartPoint { get => new Vector2(StartPointArray[0], StartPointArray[1]); set => StartPointArray = new float[] { value.x, value.y }; }
 
 		[YamlMember(Alias = "Scale", DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
-		public Vector2 Scale { get; set; } = Vector2.one;
+		public float[] ScaleArray { get; set; } = new float[] { 1, 1 };
+
+		[YamlIgnore]
+		public Vector2 Scale { get => new Vector2(ScaleArray[0], ScaleArray[1]); set => ScaleArray = new float[] { value.x, value.y }; }
 
 		[YamlMember(Alias = "Transition")]
 		public Transition Transition { get; set; }
@@ -81,6 +91,22 @@ namespace Arcript.Aspt
 			}
 
 			return tCmd as T;
+		}
+
+		public override string ToItemShortString()
+		{
+			var sb = new StringBuilder("<b>show</b> ");
+			sb.Append(ImagePath).Append(" | ");
+			sb.Append("size = ").Append(Size).Append(" | ");
+			sb.Append("startPoint = ").Append(StartPoint).Append(" | ");
+			sb.Append("scale = ").Append(Scale).Append(" | ");
+			sb.Append("transition = ").Append(Transition.ToItemShortString()).Append(" | ");
+			sb.Append("layer = ").Append(Layer);
+			if (ScaleToWidth)
+			{
+				sb.Append(" | scaleToWidth = ").Append(ScaleToWidth);
+			}
+			return sb.ToString();
 		}
 	}
 }

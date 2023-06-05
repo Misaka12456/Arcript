@@ -1,4 +1,5 @@
-﻿using YamlDotNet.Serialization;
+﻿using System.Text;
+using YamlDotNet.Serialization;
 
 namespace Arcript.Aspt
 {
@@ -6,7 +7,7 @@ namespace Arcript.Aspt
 	public class AsptVarSetCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override AsptCmdType Type => AsptCmdType.VarSet;
+		public override string TypeStr => "varSet";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock => false;
@@ -16,5 +17,13 @@ namespace Arcript.Aspt
 
 		[YamlMember(Alias = "TargetValue")]
 		public int TargetValue { get; set; }
+
+		public override string ToItemShortString()
+		{
+			var sb = new StringBuilder("<b>varSet</b> ");
+			sb.Append(VarName).Append(" = ");
+			sb.Append(TargetValue);
+			return sb.ToString();
+		}
 	}
 }

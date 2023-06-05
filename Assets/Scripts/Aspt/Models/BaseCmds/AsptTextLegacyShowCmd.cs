@@ -1,4 +1,5 @@
-﻿using YamlDotNet.Serialization;
+﻿using System.Text;
+using YamlDotNet.Serialization;
 
 namespace Arcript.Aspt
 {
@@ -6,7 +7,7 @@ namespace Arcript.Aspt
 	public class AsptTextLegacyShowCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override AsptCmdType Type => AsptCmdType.ShowTextLegacy;
+		public override string TypeStr => "say";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock => !AutoNextText;
@@ -16,5 +17,13 @@ namespace Arcript.Aspt
 
 		[YamlMember(Alias = "AutoNextText", DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
 		public bool AutoNextText { get; set; } = false;
+
+		public override string ToItemShortString()
+		{
+			var sb = new StringBuilder("<b>say</b> ");
+			sb.Append(Content).Append(" | ");
+			sb.Append("autoNextText = ").Append(AutoNextText);
+			return sb.ToString();
+		}
 	}
 }

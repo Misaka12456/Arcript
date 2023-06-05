@@ -30,7 +30,7 @@ namespace Arcript.Aspt.QuickFuncs
 		public Vector2 RelativeStartPoint { get; set; } = Vector2.zero;
 
 		[YamlMember(Alias = "RStartPoints", DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
-		public RelativePosGroup RelativeStartPoints { get; set; } = new RelativePosGroup();
+		public RelativePosGroup[] RelativeStartPoints { get; set; } = Array.Empty<RelativePosGroup>();
 
 		[YamlMember(Alias = "Scale")]
 		public Vector2 Scale { get; set; }

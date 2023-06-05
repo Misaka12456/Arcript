@@ -17,7 +17,7 @@ namespace Arcript.Utility
 			var parts = value.Split(',');
 			if (parts.Length != 4)
 			{
-				throw new InvalidOperationException($"Invalid Color format: {value}");
+				Debug.LogError($"Invalid Color format: {value}");
 			}
 			return new Color(float.Parse(parts[0]), float.Parse(parts[1]), float.Parse(parts[2]), float.Parse(parts[3]));
 		}

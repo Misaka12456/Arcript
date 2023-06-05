@@ -4,10 +4,10 @@ using YamlDotNet.Serialization;
 
 namespace Arcript.Aspt
 {
-	public class AsptCmdBase
+	public abstract class AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public virtual AsptCmdType Type { get; }
+		public virtual string TypeStr { get; }
 
 		[YamlMember(Alias = "Block", DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
 		public virtual bool IsBlock { get; set; } = false;
@@ -22,9 +22,11 @@ namespace Arcript.Aspt
 		//public virtual QuickFunction QuickFunction { get; set; } = null;
 		public virtual QFuncShortCut QuickFunction { get; set; } = null;
 
-		public virtual T ExpandFromQFunc<T>(ArcriptScript parent) where T: AsptCmdBase
+		public virtual T ExpandFromQFunc<T>(ArcriptScript parent) where T : AsptCmdBase
 		{
 			return (T)this;
 		}
+
+		public abstract string ToItemShortString(); // 显示在CmdItem上的字符串
 	}
 }

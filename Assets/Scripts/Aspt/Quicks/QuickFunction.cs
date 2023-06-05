@@ -9,18 +9,18 @@ using YamlDotNet.Serialization;
 namespace Arcript.Aspt.QuickFuncs
 {
 	[AsptCmd(AsptCmdType.SubQuickFunction, isArptPlusCmd: true, isSubCmd: true)]
-	public class QuickFunction : AsptCmdBase, ISubCmd
+	public class QuickFunction : ISubCmd
 	{
-		[YamlMember(Alias = "Type")]
-		public override AsptCmdType Type => AsptCmdType.SubQuickFunction;
+		[YamlIgnore]
+		public string TypeStr => "QFunc";
 
 		[YamlMember(Alias = "Block", DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
-		public override bool IsBlock { get; set; } = false;
+		public bool IsBlock { get; set; } = false;
 
 		[YamlMember(Alias = "Name")]
 		public string FuncName { get; set; } // 以命名空间命名格式的方法名，如'arpt.floflo.stands.centershow'
 
-		[YamlMember(Alias = "ShortCut")]
+		[YamlMember(Alias = "Shortcut")]
 		public string ShortCutName { get; set; } // 简称，如'SCentershow'
 
 		[YamlMember(Alias = "Arguments")]
@@ -29,6 +29,11 @@ namespace Arcript.Aspt.QuickFuncs
 
 		[YamlMember(Alias = "CmdTemplate")]
 		public AsptCmdBase[] CmdTemplate { get; set; } // 命令模板
+
+		public string ToItemShortString()
+		{
+			return $"QFunc = {FuncName}(alias as {ShortCutName})";
+		}
 	}
 
 	public class QFuncShortCut

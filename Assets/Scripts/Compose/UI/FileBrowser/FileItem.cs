@@ -8,10 +8,12 @@ using System.Collections.Generic;
 using Arcript.Data;
 using Arcript.I18n;
 using System.Enhance.Win32;
+using Cysharp.Threading.Tasks;
+using UnityEngine.EventSystems;
 
 namespace Arcript.Compose.UI
 {
-	public class FileItem : MonoBehaviour
+	public class FileItem : MonoBehaviour, IPointerClickHandler
 	{
 		// key = (扩展名, 同扩展名的优先级)
 		// value = 通过反射创建的对应的格式解析器 (ICustomImageFormat) 的实例
@@ -35,7 +37,6 @@ namespace Arcript.Compose.UI
 		public TMPText labelFileName;
 		public Toggle toggleSelect;
 
-
 		private ArptFolderBrowserManager parentManager;
 		[HideInInspector] public string relativePath;
 		[HideInInspector] public string fileTypeName;
@@ -43,6 +44,7 @@ namespace Arcript.Compose.UI
 		public void ItemInit(ArptFolderBrowserManager parent, string relativePath, ToggleGroup relatedGroup)
 		{
 			string absPath = Path.Combine(ArptProjectManager.Instance.CurrentProjectFolder, relativePath);
+			this.relativePath = relativePath;
 			if (!File.Exists(absPath) && !Directory.Exists(absPath))
 			{
 				Debug.LogError($"FileItem: {absPath} not exists!");
@@ -188,7 +190,7 @@ namespace Arcript.Compose.UI
 			return null;
 		}
 
-		private void OnDoubleClick()
+		private void OnDoubleClicked()
 		{
 			string absPath = Path.Combine(ArptProjectManager.Instance.CurrentProjectFolder, relativePath);
 			bool isFolder = File.GetAttributes(absPath).HasFlag(FileAttributes.Directory);
@@ -201,7 +203,7 @@ namespace Arcript.Compose.UI
 				bool isScript = ScriptFileExt.Contains(Path.GetExtension(absPath).ToLower());
 				if (isScript)
 				{
-					ArptScriptEditorManager.Instance.OpenScriptEditor(relativePath);
+					UniTask.Create(() => ArptProjectManager.Instance.LoadScript(absPath));
 				}
 				else
 				{
@@ -211,5 +213,32 @@ namespace Arcript.Compose.UI
 				}
 			}
 		}
+
+		#region Double-Click Support
+		private const float doubleClickTime = 0.3f;
+		private float lastClickTime;
+		private Vector2 lastClickPosition;
+		public void OnPointerClick(PointerEventData eventData)
+		{
+			if (eventData.clickCount == 1)
+			{
+				float timeSinceLastClick = Time.time - lastClickTime;
+				float distanceSinceLastClick = Vector2.Distance(eventData.position, lastClickPosition);
+
+				Debug.Log(string.Format("{0} {1} {2}", timeSinceLastClick, doubleClickTime, distanceSinceLastClick));
+				if (timeSinceLastClick < doubleClickTime && distanceSinceLastClick < 10)
+				{
+					OnDoubleClicked();
+				}
+
+				lastClickTime = Time.time;
+				lastClickPosition = eventData.position;
+			}
+			else if (eventData.clickCount == 2)
+			{
+				OnDoubleClicked();
+			}
+		}
+		#endregion
 	}
 }

@@ -1,4 +1,5 @@
-﻿using YamlDotNet.Serialization;
+﻿using System.Text;
+using YamlDotNet.Serialization;
 
 namespace Arcript.Aspt
 {
@@ -13,5 +14,16 @@ namespace Arcript.Aspt
 
 		[YamlMember(Alias = "Delay", DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
 		public float Delay { get; set; } = 0f;
+
+		public string ToItemShortString()
+		{
+			var sb = new StringBuilder("standImgPath = ").Append(StandImagePath).Append("; ");
+			sb.Append("switchDuration = ").Append(SwitchDuration);
+			if (Delay > 0)
+			{
+				sb.Append("; delay = ").Append(Delay);
+			}
+			return sb.ToString();
+		}
 	}
 }

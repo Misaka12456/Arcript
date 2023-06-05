@@ -12,6 +12,9 @@ namespace Arcript.Compose.UI
 {
 	public class ArptFolderBrowserManager : Singleton<ArptFolderBrowserManager>
 	{
+		[Header("Global")]
+		public GameObject panelFolderBrowser;
+
 		[Header("Folder Struct Tree")]
 		public TreeViewControl treeFolderStructure;
 		public GameObject panelOpenProjectFirstTip;

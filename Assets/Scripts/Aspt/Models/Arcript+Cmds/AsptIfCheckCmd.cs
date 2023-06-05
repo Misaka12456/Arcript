@@ -1,4 +1,6 @@
-﻿using YamlDotNet.Serialization;
+﻿using System.Linq;
+using System.Text;
+using YamlDotNet.Serialization;
 
 namespace Arcript.Aspt
 {
@@ -6,7 +8,7 @@ namespace Arcript.Aspt
 	public class AsptIfCheckCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override AsptCmdType Type => AsptCmdType.IfCheck;
+		public override string TypeStr => "if";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock => false; // if判断必定不会block
@@ -19,5 +21,13 @@ namespace Arcript.Aspt
 
 		[YamlMember(Alias = "FalseCmds")] // 判断为假时执行的命令
 		public AsptCmdBase[] FalseCmds { get; set; }
+
+		public override string ToItemShortString()
+		{
+			var sb = new StringBuilder("<b>if</b> ");
+			sb.Append('(').Append(string.Join(" && ", Conditions.Select(c => c.Expression))).Append(')');
+			sb.Append("{ ").Append("<").Append(TrueCmds.Length).Append(" cmds> } else { ").Append("<").Append(FalseCmds.Length).Append(" cmds> }");
+			return sb.ToString();
+		}
 	}
 }

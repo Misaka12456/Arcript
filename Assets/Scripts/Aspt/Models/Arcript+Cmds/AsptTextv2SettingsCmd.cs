@@ -1,4 +1,5 @@
-﻿using YamlDotNet.Serialization;
+﻿using System.Text;
+using YamlDotNet.Serialization;
 
 namespace Arcript.Aspt
 {
@@ -6,7 +7,7 @@ namespace Arcript.Aspt
 	public class AsptTextv2SettingsCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override AsptCmdType Type => AsptCmdType.SetTextv2Settings;
+		public override string TypeStr => "say+set";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock { get; set; }
@@ -16,5 +17,13 @@ namespace Arcript.Aspt
 
 		[YamlMember(Alias = "MsgBgBoxPath")]
 		public string MsgBoxImagePath { get; set; }
+
+		public override string ToItemShortString()
+		{
+			var sb = new StringBuilder("<b>say+set</b> ");
+			sb.Append("speakerBgBox = ").Append(string.IsNullOrWhiteSpace(SpeakerBoxImagePath) ? "<none>" : SpeakerBoxImagePath).Append(" | ");
+			sb.Append("msgBgBox = ").Append(MsgBoxImagePath);
+			return sb.ToString();
+		}
 	}
 }

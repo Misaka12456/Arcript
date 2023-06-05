@@ -6,6 +6,7 @@ using YamlDotNet.Core;
 using YamlDotNet.Core.Events;
 using YamlDotNet.Serialization;
 using System.ComponentModel;
+using UnityEngine;
 
 namespace Arcript.Utility
 {
@@ -31,7 +32,7 @@ namespace Arcript.Utility
 			parser.MoveNext();
 			if (!map.TryGetValue(value, out T result))
 			{
-				throw new InvalidOperationException($"Unknown value '{value}' for enum '{typeof(T).FullName}'.");
+				Debug.LogError($"Unknown value '{value}' for enum '{typeof(T).FullName}'.");
 			}
 			return result;
 		}
