@@ -7,10 +7,10 @@ namespace Arcript.Aspt
 	public class AsptLabelCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override string TypeStr => "label";
+		public override string TypeStr { get; set; } = "label";
 
 		[YamlMember(Alias = "Block")]
-		public override bool IsBlock => false; // 所有的"定义"都不会block(包括标签和锚点)
+		public override bool IsBlock { get; set; } = false; // 所有的"定义"都不会block(包括标签和锚点)
 
 		[YamlMember(Alias = "LabelName")]
 		public string LabelName { get; set; }

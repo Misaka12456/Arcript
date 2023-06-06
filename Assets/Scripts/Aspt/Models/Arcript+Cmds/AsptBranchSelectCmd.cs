@@ -8,10 +8,10 @@ namespace Arcript.Aspt
 	public class AsptBranchSelectCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override string TypeStr => "selectSay";
+		public override string TypeStr { get; set; } = "selectSay";
 
 		[YamlMember(Alias = "Block")]
-		public override bool IsBlock => true; // 选择支必定会block
+		public override bool IsBlock { get; set; } = true; // 选择支必定会block
 
 		[YamlMember(Alias = "SelectTip")]
 		public string SelectTip { get; set; }

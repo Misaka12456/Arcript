@@ -7,7 +7,7 @@ namespace Arcript.Aspt
 	public class AsptPictureHideCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override string TypeStr => "hide";
+		public override string TypeStr { get; set; } = "hide";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock { get; set; }

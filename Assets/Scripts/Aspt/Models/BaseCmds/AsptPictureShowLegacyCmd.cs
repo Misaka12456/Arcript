@@ -28,7 +28,7 @@ namespace Arcript.Aspt
 					string desc = type.GetDescription();
 					descDict.Add(desc, type);
 				}
-				return descDict[CurveStr];
+				return descDict[TypeStr];
 			}
 			set
 			{
@@ -79,7 +79,7 @@ namespace Arcript.Aspt
 	public class AsptPictureShowLegacyCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override string TypeStr => "show";
+		public override string TypeStr { get; set; } = "show";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock { get; set; }

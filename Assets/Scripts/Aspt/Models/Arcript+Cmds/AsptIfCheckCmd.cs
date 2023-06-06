@@ -8,10 +8,10 @@ namespace Arcript.Aspt
 	public class AsptIfCheckCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override string TypeStr => "if";
+		public override string TypeStr { get; set; } = "if";
 
 		[YamlMember(Alias = "Block")]
-		public override bool IsBlock => false; // if判断必定不会block
+		public override bool IsBlock { get; set; } = false; // if判断必定不会block
 
 		[YamlMember(Alias = "Conditions")]
 		public AsptVarCheckCmd[] Conditions { get; set; }

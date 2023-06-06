@@ -9,10 +9,10 @@ namespace Arcript.Aspt
 	public class AsptAnchorCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override string TypeStr => "anchor";
+		public override string TypeStr { get; set; } = "anchor";
 
 		[YamlMember(Alias = "Block")]
-		public override bool IsBlock => false; // 所有的"定义"都不会block(包括标签和锚点)
+		public override bool IsBlock { get; set; } = false; // 所有的"定义"都不会block(包括标签和锚点)
 
 		[YamlMember(Alias = "AnchorName")]
 		public string AnchorName { get; set; }

@@ -10,7 +10,7 @@ namespace Arcript.Aspt
 	public class AsptPictureShowCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override string TypeStr => "show";
+		public override string TypeStr { get; set; } = "show";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock { get; set; }
@@ -19,22 +19,13 @@ namespace Arcript.Aspt
 		public string ImagePath { get; set; }
 
 		[YamlMember(Alias = "Size")]
-		public float[] SizeArray { get; set; }
-
-		[YamlIgnore]
-		public Vector2 Size { get => new Vector2(SizeArray[0], SizeArray[1]); set => SizeArray = new float[] { value.x, value.y }; }
+		public Vector2 Size { get; set; }
 
 		[YamlMember(Alias = "StartPoint")]
-		public float[] StartPointArray { get; set; }
-
-		[YamlIgnore]
-		public Vector2 StartPoint { get => new Vector2(StartPointArray[0], StartPointArray[1]); set => StartPointArray = new float[] { value.x, value.y }; }
+		public Vector2 StartPoint { get; set; }
 
 		[YamlMember(Alias = "Scale", DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
-		public float[] ScaleArray { get; set; } = new float[] { 1, 1 };
-
-		[YamlIgnore]
-		public Vector2 Scale { get => new Vector2(ScaleArray[0], ScaleArray[1]); set => ScaleArray = new float[] { value.x, value.y }; }
+		public Vector2 Scale { get; set; } = Vector2.one;
 
 		[YamlMember(Alias = "Transition")]
 		public Transition Transition { get; set; }

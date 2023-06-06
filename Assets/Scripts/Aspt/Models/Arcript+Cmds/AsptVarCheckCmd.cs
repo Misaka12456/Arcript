@@ -7,10 +7,10 @@ namespace Arcript.Aspt
 	public class AsptVarCheckCmd : AsptCmdBase, ISubCmd
 	{
 		[YamlMember(Alias = "Type")]
-		public override string TypeStr => "varCheck";
+		public override string TypeStr { get; set; } = "varCheck";
 
 		[YamlMember(Alias = "Block")]
-		public override bool IsBlock => false; // 还是那句话，都不是完整的指令何来Block一说
+		public override bool IsBlock { get; set; } = false; // 还是那句话，都不是完整的指令何来Block一说
 
 		[YamlMember(Alias = "Expr")]
 		public string Expression { get; set; }

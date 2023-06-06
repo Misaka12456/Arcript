@@ -8,7 +8,7 @@ namespace Arcript.Aspt
 	public class AsptTextShowCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override string TypeStr => "say+";
+		public override string TypeStr { get; set; } = "say+";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock { get; set; }
@@ -43,7 +43,14 @@ namespace Arcript.Aspt
 		public override string ToItemShortString()
 		{
 			var sb = new StringBuilder("<b>say+</b> ");
-			sb.Append(Speaker).Append(' ').Append(Content.Replace("\n", string.Empty));
+			if (string.IsNullOrWhiteSpace(Speaker) && string.IsNullOrWhiteSpace(Content))
+			{
+				sb.Append("<i><clearScreen></i>");
+			}
+			else
+			{
+				sb.Append(Speaker).Append(' ').Append(Content.Replace("\n", string.Empty));
+			}
 			return sb.ToString();
 		}
 	}

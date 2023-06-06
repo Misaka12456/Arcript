@@ -7,7 +7,7 @@ namespace Arcript.Aspt
 	public abstract class AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public virtual string TypeStr { get; }
+		public virtual string TypeStr { get; set; }
 
 		[YamlMember(Alias = "Block", DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
 		public virtual bool IsBlock { get; set; } = false;

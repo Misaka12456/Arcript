@@ -7,15 +7,15 @@ namespace Arcript.Aspt
 	public class AsptTextv2SettingsCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override string TypeStr => "say+set";
+		public override string TypeStr { get; set; } = "say+set";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock { get; set; }
 
-		[YamlMember(Alias = "SpeakerBgBoxPath", DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
+		[YamlMember(Alias = "SpeakerBoxImg", DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
 		public string SpeakerBoxImagePath { get; set; } = string.Empty;
 
-		[YamlMember(Alias = "MsgBgBoxPath")]
+		[YamlMember(Alias = "MsgBoxImg")]
 		public string MsgBoxImagePath { get; set; }
 
 		public override string ToItemShortString()

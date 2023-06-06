@@ -7,10 +7,10 @@ namespace Arcript.Aspt
 	public class AsptTextLegacyShowCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override string TypeStr => "say";
+		public override string TypeStr { get; set; } = "say";
 
 		[YamlMember(Alias = "Block")]
-		public override bool IsBlock => !AutoNextText;
+		public override bool IsBlock { get; set; }
 
 		[YamlMember(Alias = "Content")]
 		public string Content { get; set; }
@@ -21,7 +21,14 @@ namespace Arcript.Aspt
 		public override string ToItemShortString()
 		{
 			var sb = new StringBuilder("<b>say</b> ");
-			sb.Append(Content).Append(" | ");
+			if (string.IsNullOrWhiteSpace(Content))
+			{
+				sb.Append("<i><clearScreen></i> | ");
+			}
+			else
+			{
+				sb.Append(Content).Append(" | ");
+			}
 			sb.Append("autoNextText = ").Append(AutoNextText);
 			return sb.ToString();
 		}

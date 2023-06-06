@@ -8,7 +8,7 @@ namespace Arcript.Aspt
 	public class AsptHSceneStartAnchorCmd : AsptAnchorCmd
 	{
 		[YamlMember(Alias = "Type")]
-		public override string TypeStr => "anchorHSStart";
+		public override string TypeStr { get; set; } = "anchorHSStart";
 
 		[YamlMember(Alias = "HSceneName")]
 		public string HSceneName { get; set; }

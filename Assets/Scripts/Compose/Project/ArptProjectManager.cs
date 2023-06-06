@@ -9,6 +9,7 @@ using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using SFB;
 using System;
+using System.Collections.Generic;
 using System.Enhance.Unity;
 using System.IO;
 using System.Linq;
@@ -134,23 +135,41 @@ namespace Arcript.Compose
 
 		public async UniTask LoadScript(string scriptPath)
 		{
-			var ptConverter = new PolymorphicTypeConverter();
-			var firstBuilder = new DeserializerBuilder()
-			//.WithNamingConvention(CamelCaseNamingConvention.Instance)
-			.WithTypeConverter(ptConverter);
+			var builder = new DeserializerBuilder();
 
-			var cmdBaseType = typeof(AsptCmdBase);
-			var cmdTypes = Assembly.GetExecutingAssembly().GetTypes()
-				.Where(t => cmdBaseType.IsAssignableFrom(t) && !t.IsAbstract);
+			var typeTags = new Dictionary<string, Type>();
 
-			// Register all found types with the polymorphic type converter
-			var tConverterBase = firstBuilder.Build();
+			// 定义几个转换器
+			var converters = new IYamlTypeConverter[] { new Vector2YamlConverter(), new ColorYamlConverter() };
+			
+			// 查找所有的AsptCmdBase的继承类
+			var cmdTypes = AppDomain.CurrentDomain.GetAssemblies()
+				.SelectMany(a => a.GetTypes())
+				.Where(t => t.IsSubclassOf(typeof(AsptCmdBase)) && !t.IsAbstract);
 
-			foreach (var cmdType in cmdTypes)
+			// 提取所有继承类的名称以$"!{name}"的形式作为Yaml的Tag
+			foreach (var t in cmdTypes)
 			{
-				ptConverter.RegisterType(cmdType);
+				string name = t.Name;
+				var type = t;
+				typeTags.Add($"!{name}", type);
 			}
-			var reader = firstBuilder.Build();
+
+			// 注册所有的Tag
+			foreach (var kv in typeTags)
+			{
+				builder = builder.WithTagMapping(kv.Key, kv.Value);
+			}
+
+			// 注册所有的转换器
+			foreach (var c in converters)
+			{
+				builder = builder.WithTypeConverter(c);
+			}
+
+			// 构建Deserializer
+			var reader = builder.Build();
+
 			FileStream fs = null;
 			StreamReader sr = null;
 			try
@@ -160,7 +179,9 @@ namespace Arcript.Compose
 				fs = File.OpenRead(Path.Combine(CurrentProjectFolder, CurrentProject.LastOpenScript));
 				await fs.CopyToAsync(sr.BaseStream);
 				sr.BaseStream.Seek(0, SeekOrigin.Begin);
+
 				CurrentScript = reader.Deserialize<ArcriptScript>(sr);
+
 				CurrentScriptRelativePath = CurrentProject.LastOpenScript;
 				string scriptName = Path.GetFileNameWithoutExtension(Path.Combine(CurrentProjectFolder, CurrentProject.LastOpenScript));
 				ArcriptComposeManager.Instance.SetTitle(projName: CurrentProject.ProjectName, scriptName: scriptName);

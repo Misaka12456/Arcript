@@ -12,14 +12,19 @@ namespace Arcript.Utility
 
 		public object ReadYaml(IParser parser, Type type)
 		{
-			var value = ((Scalar)parser.Current).Value;
-			parser.MoveNext();
-			var parts = value.Split(',');
-			if (parts.Length != 2)
+			// 改成按照数组 [ x, y ] 的格式读取
+			if (parser.TryConsume<SequenceStart>(out _))
 			{
-				Debug.LogError($"Invalid Vector2 format: {value}");
+				var x = float.Parse(parser.Consume<Scalar>().Value);
+				var y = float.Parse(parser.Consume<Scalar>().Value);
+				parser.Consume<SequenceEnd>();
+				return new Vector2(x, y);
 			}
-			return new Vector2(float.Parse(parts[0]), float.Parse(parts[1]));
+			else
+			{
+				Debug.LogError($"Invalid Vector2 format: {parser.Current}");
+				return Vector2.zero;
+			}
 		}
 
 		public void WriteYaml(IEmitter emitter, object value, Type type)

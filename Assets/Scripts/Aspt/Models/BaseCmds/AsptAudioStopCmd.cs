@@ -9,7 +9,7 @@ namespace Arcript.Aspt
 	public class AsptAudioStopCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override string TypeStr => "stop";
+		public override string TypeStr { get; set; } = "stop";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock { get; set; }

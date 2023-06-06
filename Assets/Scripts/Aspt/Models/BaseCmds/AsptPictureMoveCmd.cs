@@ -11,7 +11,7 @@ namespace Arcript.Aspt
 	public class AsptPictureMoveCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override string TypeStr => "move";
+		public override string TypeStr { get; set; } = "move";
 
 		[YamlMember(Alias = "Block")]
 		public override bool IsBlock { get; set; }
@@ -20,9 +20,7 @@ namespace Arcript.Aspt
 		public string ImagePath { get; set; }
 
 		[YamlMember(Alias = "MoveDelta")]
-		public float[] MoveDeltaArray { get; set; } = Array.Empty<float>();
-
-		public Vector2 MoveDelta { get => new Vector2(MoveDeltaArray[0], MoveDeltaArray[1]); set => MoveDeltaArray = new float[] { value.x, value.y }; }
+		public Vector2 MoveDelta { get; set; }
 
 		[YamlMember(Alias = "Curve", DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
 		public string CurveStr { get; set; } = "linear";

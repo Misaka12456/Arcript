@@ -7,10 +7,10 @@ namespace Arcript.Aspt
 	public class AsptVarSetCmd : AsptCmdBase
 	{
 		[YamlMember(Alias = "Type")]
-		public override string TypeStr => "varSet";
+		public override string TypeStr { get; set; } = "varSet";
 
 		[YamlMember(Alias = "Block")]
-		public override bool IsBlock => false;
+		public override bool IsBlock { get; set; } = false;
 
 		[YamlMember(Alias = "VarName")]
 		public string VarName { get; set; }
