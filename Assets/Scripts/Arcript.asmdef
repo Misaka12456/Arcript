@@ -8,7 +8,8 @@
         "UniTask.TextMeshPro",
         "SFB.Runtime",
         "Unity.TextMeshPro",
-        "TreeView"
+        "TreeView",
+        "DOTween.Modules"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

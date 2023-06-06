@@ -12,6 +12,8 @@ namespace Arcript.Compose.UI
 {
 	public class ArptFolderBrowserManager : Singleton<ArptFolderBrowserManager>
 	{
+		public bool IsInFolderBrowser => panelFolderBrowser.activeSelf;
+
 		[Header("Global")]
 		public GameObject panelFolderBrowser;
 

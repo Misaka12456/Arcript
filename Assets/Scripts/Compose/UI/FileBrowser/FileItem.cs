@@ -203,7 +203,7 @@ namespace Arcript.Compose.UI
 				bool isScript = ScriptFileExt.Contains(Path.GetExtension(absPath).ToLower());
 				if (isScript)
 				{
-					UniTask.Create(() => ArptProjectManager.Instance.LoadScript(absPath));
+					UniTask.Create(() => ArptProjectManager.Instance.LoadScriptAsync(absPath));
 				}
 				else
 				{

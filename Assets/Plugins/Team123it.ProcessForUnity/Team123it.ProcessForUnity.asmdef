@@ -1,0 +1,14 @@
+{
+    "name": "Team123it.ProcessForUnity",
+    "rootNamespace": "Team123it.ProcessForUnity",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

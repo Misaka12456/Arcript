@@ -39,7 +39,7 @@ namespace Arcript.Compose
 				// 当前脚本处于打开状态的情况下切换至Directory Browser(保留脚本的打开状态)
 				var r = MsgBoxDialog.Show(I.S["compose.script.leaveOpen"].value, I.S["compose.script.leaveOpen.title"].value, MsgBoxType.YesNo);
 				if (r == MsgBoxResult.No) return;
-				btnReopenScript.interactable = true;
+				ArptScriptEditorManager.Instance.HideScriptEditorToBackground();
 			}
 			GenerateBreadCrumbList(relativePath);
 			CurrentFullPath = Path.Combine(ArptProjectManager.Instance.CurrentProjectFolder, relativePath);

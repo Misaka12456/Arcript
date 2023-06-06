@@ -16,6 +16,11 @@ Powerful Not-Only-Arcaea[^2] Visual Novel (VN) Script Creator written in Unity a
 
 </div>
 
+## Discussion Area
+Welcome to join ``Arcript`` Official QQ Group and Discord Server to chat everything about ``Arcript``!  
+- Official Discord Server: *&lt;preparing&gt;*
+- Official QQ Discussing Group: ~~827728743~~(*Entry Channel will be opened on Development Day 20*)
+
 ## Script Formats
 
 ``Arcript`` uses ``aspt``[^3] to store all VN script commands.Every ``aspt`` script should be built before they can be used in Arcaea or various supported VN game engine(s).  

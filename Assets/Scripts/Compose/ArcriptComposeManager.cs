@@ -27,7 +27,7 @@ namespace Arcript.Compose
 			AllowRepeatInit = true;
 		}
 
-		public void SetTitle(string projName = "", string scriptName = "")
+		public void SetTitle(string projName = "", string scriptName = "", bool pendingModify = false)
 		{
 			var sb = new StringBuilder($"Arcript VN Creator v{Application.version} (Build {assetBuild.text})");
 #if UNITY_EDITOR
@@ -39,11 +39,13 @@ namespace Arcript.Compose
 				sb.Append($" - {projName}");
 				if (!string.IsNullOrWhiteSpace(scriptName))
 				{
-					sb.Append($" - {scriptName}");
-				}
-				else
-				{
-					sb.Append(" - <New Script>");
+					//sb.Append($" - {scriptName}");
+					sb.Append(" - ");
+					if (pendingModify)
+					{
+						sb.Append("*");
+					}
+					sb.Append(scriptName);
 				}
 			}
 			labelAppTitle.text = sb.ToString();

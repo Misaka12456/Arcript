@@ -48,6 +48,19 @@ namespace Arcript.Compose
 			AllowRepeatInit = true;
 		}
 
+		private void Update()
+		{
+			if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+#if UNITY_EDITOR // 为防止Ctrl+O与Unity的打开文件快捷键冲突，仅在编辑器下支持Ctrl+Shift+O打开项目
+				&& (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+#endif
+				&& Input.GetKeyDown(KeyCode.O))
+			{
+				LoadProject();
+			}
+		}
+
+		#region Load & Save Project
 		private void LoadProject()
 		{
 			string path = StandaloneFileBrowser.OpenFolderPanel(I.S["compose.project.load.title"].value, string.Empty, false);
@@ -97,7 +110,7 @@ namespace Arcript.Compose
 				{
 					if (File.Exists(CurrentProject.LastOpenScript))
 					{
-						await LoadScript(CurrentProject.LastOpenScript);
+						await LoadScriptAsync(CurrentProject.LastOpenScript);
 						return;
 					}
 					else
@@ -121,19 +134,78 @@ namespace Arcript.Compose
 			}
 		}
 
-		private void Update()
+		public async UniTask<bool> SaveProjectAsync(bool noSaveScript = false)
 		{
-			if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
-#if UNITY_EDITOR // 为防止Ctrl+O与Unity的打开文件快捷键冲突，仅在编辑器下支持Ctrl+Shift+O打开项目
-				&& (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-#endif
-				&& Input.GetKeyDown(KeyCode.O))
+			try
 			{
-				LoadProject();
+				if (CurrentProject == null || string.IsNullOrWhiteSpace(CurrentProjectFolder))
+				{
+					Debug.LogWarning("Cannot save \"project\" when the \"project\" is totally null.");
+					return false;
+				}
+				if (!File.Exists(Path.Combine(CurrentProjectFolder, "Arcript", "Project.arpt")))
+				{
+					Debug.LogError("Cannot find the corresponding Arcript Project metadata file (Project.arpt).");
+					return false;
+				}
+				if (CurrentScript != null)
+				{
+					CurrentProject.LastOpenScript = CurrentScriptRelativePath;
+					CurrentProject.LastOpenScriptLine = ArptScriptEditorManager.Instance.CurrentChosenCmdIdx;
+					if (!noSaveScript)
+					{
+						await SaveScriptAsync(CurrentScriptRelativePath, CurrentScript);
+					}
+				}
+				else
+				{
+					CurrentProject.LastOpenScript = null;
+					CurrentProject.LastOpenScriptLine = 0;
+				}
+
+				// serialize project metadata into temporary memory stream
+				using var ms = new MemoryStream();
+				using var jw = new JsonTextWriter(new StreamWriter(ms, Encoding.UTF8, bufferSize: 1024, leaveOpen: true));
+				var serializer = new JsonSerializer();
+				serializer.Serialize(jw, CurrentProject);
+				jw.Flush();
+				jw.Close();
+
+				// reset stream position
+				ms.Seek(0, SeekOrigin.Begin);
+
+				// copy temporary memory stream to Project.arpt with file stream (write or truncate)
+				using var fs = new FileStream(Path.Combine(CurrentProjectFolder, "Arcript", "Project.arpt"), FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, bufferSize: 1024, useAsync: true);
+				fs.SetLength(0); // truncate
+				fs.Seek(0, SeekOrigin.Begin);
+				await ms.CopyToAsync(fs);
+				fs.Flush();
+
+				// finish save operation
+				fs.Close();
+				ms.Close();
+
+				if (!noSaveScript)
+				{
+					ArptToast.Instance.Show(I.S["compose.project.saved"].value);
+				}
+				else
+				{
+					ArptToast.Instance.Show(I.S["compose.project.saved.withScript"].value);
+				}
+				return true;
+			}
+			catch (Exception ex)
+			{
+				Debug.LogException(ex);
+				ArptToast.Instance.Show(I.S["compose.project.save.failed"].value);
+				return false;
 			}
 		}
+		#endregion
 
-		public async UniTask LoadScript(string scriptPath)
+		#region Load & Save Script
+		public async UniTask LoadScriptAsync(string scriptPath)
 		{
 			var builder = new DeserializerBuilder();
 
@@ -201,7 +273,7 @@ namespace Arcript.Compose
 			}
 		}
 
-		public async UniTask SaveScript(string scriptPath, ArcriptScript script)
+		public async UniTask<bool> SaveScriptAsync(string scriptPath, ArcriptScript script)
 		{
 			var builder = new SerializerBuilder();
 			foreach (var c in Converters)
@@ -218,11 +290,14 @@ namespace Arcript.Compose
 				await sw.WriteAsync(writer.Serialize(script));
 				CurrentScriptRelativePath = scriptPath;
 				string scriptName = Path.GetFileNameWithoutExtension(Path.Combine(CurrentProjectFolder, scriptPath));
-				ArcriptComposeManager.Instance.SetTitle(projName: CurrentProject.ProjectName, scriptName: scriptName);
+				ArcriptComposeManager.Instance.SetTitle(projName: CurrentProject.ProjectName, scriptName: scriptName,
+					pendingModify: false);
+				return true;
 			}
 			catch (Exception ex)
 			{
 				Debug.LogError($"An error occurred when saving Arcript Script '{scriptPath}':\n{ex}");
+				return false;
 			}
 			finally
 			{
@@ -230,5 +305,6 @@ namespace Arcript.Compose
 				fs?.Dispose();
 			}
 		}
+		#endregion
 	}
 }

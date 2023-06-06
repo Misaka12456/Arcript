@@ -8,6 +8,15 @@
 		"compose.project.load.title": {
 			"value": "选择要加载的Arcript项目文件夹"
 		},
+		"compose.project.saved": {
+			"value": "项目已保存"
+		},
+		"compose.project.saved.withScript": {
+			"value": "项目+脚本已保存"
+		},
+		"compose.project.save.failed": {
+			"value": "项目保存失败"
+		},
 		"compose.script.load.notfound": {
 			"value": "无法找到指定的视觉小说(VN)脚本文件 {0}"
 		},
@@ -17,7 +26,7 @@
 		"compose.script.leaveOpen": {
 			"value": "此操作将继续在后台保持当前脚本的打开状态。\n您可通过单击导航栏右侧的“返回”按钮返回到脚本。\n\n此操作不会关闭当前脚本。如果您想关闭脚本，请单击Arcript编辑器右上角的MDI“关闭”按钮。\n您确定要继续执行此操作吗？"
 		},
-		"compose.script.leavenOpen.title": {
+		"compose.script.leaveOpen.title": {
 			"value": "在后台保持脚本打开状态"
 		},
 		"compose.browser.tree.loadFirstTip": {
@@ -64,6 +73,12 @@
 		},
 		"compose.scriptEditing.ops.general.buildScript": {
 			"value": "构建脚本"
+		},
+		"compose.script.closeNotSave.title": {
+			"value": "是否保存对以下项所做的更改？"
+		},
+		"compose.script.closeNotSave": {
+			"value": "{0}\n-   {1}\n    {2}"
 		}
 	}
 }

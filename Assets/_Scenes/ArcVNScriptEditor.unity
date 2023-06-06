@@ -1108,6 +1108,7 @@ MonoBehaviour:
   btnNextPage: {fileID: 0}
   btnFirstPage: {fileID: 0}
   btnLastPage: {fileID: 0}
+  btnBringBgScriptToFront: {fileID: 715212601}
   prefabCmdItem: {fileID: 1957494175881322731, guid: 7069178dd944c824db01a3c6587a37fb, type: 3}
   CurrentPage: 0
 --- !u!1 &89779279
@@ -5200,7 +5201,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Arcript VN Creator v0.1.0 (Build 1) - Day 16
+  m_Text: Arcript VN Creator v0.1.0 (Build 1) - Day 19
 --- !u!222 &509466091
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6762,7 +6763,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 715212602}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 87812588}
+        m_TargetAssemblyTypeName: Arcript.Compose.ArptScriptEditorManager, Arcript
+        m_MethodName: BackToScriptEditor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &715212602
 MonoBehaviour:
   m_ObjectHideFlags: 0

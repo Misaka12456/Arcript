@@ -2,8 +2,6 @@
 
 # Arcript
 
----
-
 <!-- [![Version](https://img.shields.io/github/v/release/Misaka12456/Arcript?display_name=tag)](https://github.com/Misaka12456/Arcript/releases) -->
 
 ![Version](https://img.shields.io/badge/Version-0.1.0%28early%20developing%20status%29-blue) ![Unity Version](https://img.shields.io/badge/Unity%20Version-2020.2.1f1-orange)
@@ -17,6 +15,17 @@
 **版权提示: 请参阅[License](#开源协议)部分以了解DMCA版权投诉请求的相关内容。**
 
 </div>
+
+<!-- ## Discussion Area
+Welcome to join ``Arcript`` Official QQ Group and Discord Server to chat everything about ``Arcript``!  
+- Official Discord Server: *&lt;preparing&gt;*
+- Official QQ Discussing Group: <s>827728743</s>(*Entry Channel will be opened on Development Day 20*) -->
+
+## 讨论区
+志同道合的人，终究会聚集在一起……  
+欢迎加入 ``Arcript`` 官方Q群和Discord服务器以讨论有关 ``Arcript`` 的任何话题！  
+- 官方Q群: ~~827728743~~(*入群通道将于Day 20开放*)
+- 官方Discord: *&lt;筹备中(preparing)&gt;*
 
 ## 脚本格式
 
