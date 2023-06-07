@@ -1,5 +1,7 @@
 <div align="center">
 
+[![Arcript](Assets/Skin/InternalTextures/Icon/Arcripts/Arcript_Small_128x128.png)](https://github.com/Misaka12456/Arcript)  
+
 # Arcript
 
 <!-- [![Version](https://img.shields.io/github/v/release/Misaka12456/Arcript?display_name=tag)](https://github.com/Misaka12456/Arcript/releases) -->
@@ -19,7 +21,7 @@ Powerful Not-Only-Arcaea[^2] Visual Novel (VN) Script Creator written in Unity a
 ## Discussion Area
 Welcome to join ``Arcript`` Official QQ Group and Discord Server to chat everything about ``Arcript``!  
 - Official Discord Server: *&lt;preparing&gt;*
-- Official QQ Discussing Group: ~~827728743~~(*Entry Channel will be opened on Development Day 20*)
+- Official QQ Discussing Group: [827728743](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=VswkWdzXWdcE4vp1I8HJ8umljGeXD-R8&authKey=sLS2vGE%2FM%2BDWdI0KebfcrTGQvlxxwW9E%2FqzyYgqF309jV6uDFCyR3Csl4zZMxD0f&noverify=0&group_code=827728743)
 
 ## Script Formats
 

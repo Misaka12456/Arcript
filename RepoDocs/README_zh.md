@@ -1,5 +1,7 @@
 <div align="center">
 
+[![Arcript](../Assets/Skin/InternalTextures/Icon/Arcripts/Arcript_Small_128x128.png)](https://github.com/Misaka12456/Arcript)  
+
 # Arcript
 
 <!-- [![Version](https://img.shields.io/github/v/release/Misaka12456/Arcript?display_name=tag)](https://github.com/Misaka12456/Arcript/releases) -->
@@ -24,7 +26,7 @@ Welcome to join ``Arcript`` Official QQ Group and Discord Server to chat everyth
 ## 讨论区
 志同道合的人，终究会聚集在一起……  
 欢迎加入 ``Arcript`` 官方Q群和Discord服务器以讨论有关 ``Arcript`` 的任何话题！  
-- 官方Q群: ~~827728743~~(*入群通道将于Day 20开放*)
+- 官方Q群: [827728743](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=VswkWdzXWdcE4vp1I8HJ8umljGeXD-R8&authKey=sLS2vGE%2FM%2BDWdI0KebfcrTGQvlxxwW9E%2FqzyYgqF309jV6uDFCyR3Csl4zZMxD0f&noverify=0&group_code=827728743)  
 - 官方Discord: *&lt;筹备中(preparing)&gt;*
 
 ## 脚本格式

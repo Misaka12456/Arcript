@@ -83,3 +83,6 @@ crashlytics-build.properties
 
 # Test Textures may contains copyrighted images
 /[Aa]ssets/[Tt]est[Tt]extures/
+
+# Arcript Copyrighted Internal Sources (such as psd files)
+/[Ii]nternal[Ss]ources/
