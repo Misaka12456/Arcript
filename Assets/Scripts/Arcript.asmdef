@@ -9,7 +9,8 @@
         "SFB.Runtime",
         "Unity.TextMeshPro",
         "TreeView",
-        "DOTween.Modules"
+        "DOTween.Modules",
+        "Team123it.ProcessForUnity"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

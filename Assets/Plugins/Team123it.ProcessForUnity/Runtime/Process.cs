@@ -15,70 +15,80 @@ namespace Team123it.ProcessForUnity
 		#region Exported C++ functions
 
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN // windows
-		[DllImport("Team123it.ProcessForUnity.Core.Win32.dll")]
-        private static extern IntPtr Process_Create(string command);
+		[DllImport("Team123it.ProcessForUnity.Core.Win32.dll", EntryPoint = "ProcCreate", CharSet = CharSet.Auto)]
+		private static extern IntPtr Process_Create([MarshalAs(UnmanagedType.LPWStr)] string command);
 
-		[DllImport("Team123it.ProcessForUnity.Core.Win32.dll")]
+		[DllImport("Team123it.ProcessForUnity.Core.Win32.dll", EntryPoint = "ProcDestroy")]
 		private static extern void Process_Destroy(IntPtr handle);
 
-		[DllImport("Team123it.ProcessForUnity.Core.Win32.dll")]
+		[DllImport("Team123it.ProcessForUnity.Core.Win32.dll", EntryPoint = "ProcStart")]
 		private static extern void Process_Start(IntPtr handle);
 
-		[DllImport("Team123it.ProcessForUnity.Core.Win32.dll")]
+		[DllImport("Team123it.ProcessForUnity.Core.Win32.dll", EntryPoint = "ProcIsRunning")]
 		private static extern bool Process_IsRunning(IntPtr handle);
 
-		[DllImport("Team123it.ProcessForUnity.Core.Win32.dll")]
+		[DllImport("Team123it.ProcessForUnity.Core.Win32.dll", EntryPoint = "ProcGetExitCode")]
 		private static extern int Process_GetExitCode(IntPtr handle);
 
-		[DllImport("Team123it.ProcessForUnity.Core.Win32.dll", CharSet = CharSet.Auto)]
-		private static extern void Process_RedirectInput(IntPtr handle, Stream inputStream);
+		[DllImport("Team123it.ProcessForUnity.Core.Win32.dll", EntryPoint = "ProcRedirectInput", CharSet = CharSet.Auto)]
+		private static extern void Process_RedirectInput(IntPtr handle, IntPtr inputStream);
 
-		[DllImport("Team123it.ProcessForUnity.Core.Win32.dll", CharSet = CharSet.Auto)]
-		private static extern void Process_RedirectOutput(IntPtr handle, Stream outputStream);
+		[DllImport("Team123it.ProcessForUnity.Core.Win32.dll", EntryPoint = "ProcRedirectOutput", CharSet = CharSet.Auto)]
+		private static extern void Process_RedirectOutput(IntPtr handle, IntPtr outputStream);
+
+		[DllImport("Team123it.ProcessForUnity.Core.Win32.dll", EntryPoint = "ProcKill")]
+		private static extern bool Process_Kill(IntPtr handle);
+
 #elif UNITY_STANDALONE_LINUX || UNITY_ANDROID || UNITY_IOS || UNITY_STANDALONE_OSX // 基于*nix的系统(linux或基于linux[安卓]或基于*nix的FreeBSD[iOS/iPadOS/macOS])
 #if (UNITY_64 || UNITY_EDITOR_64) // x86_64(x64)
-		[DllImport("libproc4unity64.so", CharSet = CharSet.Auto)]
-		private static IntPtr Process_Create(string command);
+		[DllImport("libproc4unity64.so", EntryPoint = "ProcCreate", CharSet = CharSet.Auto)]
+		private static extern IntPtr Process_Create([MarshalAs(UnmanagedType.LPWStr)] string command);
 
-		[DllImport("libproc4unity64.so")]
+		[DllImport("libproc4unity64.so", EntryPoint = "ProcDestroy")]
 		private static void Process_Destroy(IntPtr handle);
 
-		[DllImport("libproc4unity64.so")]
+		[DllImport("libproc4unity64.so", EntryPoint = "ProcStart")]
 		private static void Process_Start(IntPtr handle);
 
-		[DllImport("libproc4unity64.so")]
+		[DllImport("libproc4unity64.so", EntryPoint = "ProcIsRunning")]
 		private static bool Process_IsRunning(IntPtr handle);
 
-		[DllImport("libproc4unity64.so")]
+		[DllImport("libproc4unity64.so", EntryPoint = "ProcGetExitCode")]
 		private static int Process_GetExitCode(IntPtr handle);
 
-		[DllImport("libproc4unity64.so", CharSet = CharSet.Auto)]
-		private static void Process_RedirectInput(IntPtr handle, Stream inputStream);
+		[DllImport("libproc4unity64.so", EntryPoint = "ProcRedirectInput", CharSet = CharSet.Auto)]
+		private static void Process_RedirectInput(IntPtr handle, IntPtr inputStream);
 
-		[DllImport("libproc4unity64.so", CharSet = CharSet.Auto)]
-		private static void Process_RedirectOutput(IntPtr handle, Stream outputStream);
+		[DllImport("libproc4unity64.so", EntryPoint = "ProcRedirectOutput", CharSet = CharSet.Auto)]
+		private static void Process_RedirectOutput(IntPtr handle, IntPtr outputStream);
+
+		[DllImport("libproc4unity64.so", EntryPoint = "ProcKill")]
+		private static bool Process_Kill(IntPtr handle);
 		
 #else // arm64
-		[DllImport("libproc4unityarm64.so", CharSet = CharSet.Auto)]
-		private static IntPtr Process_Create(string command);
+		[DllImport("libproc4unityarm64.so", EntryPoint = "ProcCreate", CharSet = CharSet.Auto)]
+		private static extern IntPtr Process_Create([MarshalAs(UnmanagedType.LPWStr)] string command);
 
-		[DllImport("libproc4unityarm64.so")]
+		[DllImport("libproc4unityarm64.so", EntryPoint = "ProcDestroy")]
 		private static void Process_Destroy(IntPtr handle);
 
-		[DllImport("libproc4unityarm64.so")]
+		[DllImport("libproc4unityarm64.so", EntryPoint = "ProcStart")]
 		private static void Process_Start(IntPtr handle);
 
-		[DllImport("libproc4unityarm64.so")]
+		[DllImport("libproc4unityarm64.so", EntryPoint = "ProcIsRunning")]
 		private static bool Process_IsRunning(IntPtr handle);
 
-		[DllImport("libproc4unityarm64.so")]
+		[DllImport("libproc4unityarm64.so", EntryPoint = "ProcGetExitCode")]
 		private static int Process_GetExitCode(IntPtr handle);
 
-		[DllImport("libproc4unityarm64.so", CharSet = CharSet.Auto)]
-		private static void Process_RedirectInput(IntPtr handle, Stream inputStream);
+		[DllImport("libproc4unityarm64.so", EntryPoint = "ProcRedirectInput", CharSet = CharSet.Auto)]
+		private static void Process_RedirectInput(IntPtr handle, IntPtr inputStream);
 
-		[DllImport("libproc4unityarm64.so", CharSet = CharSet.Auto)]
-		private static void Process_RedirectOutput(IntPtr handle, Stream outputStream);
+		[DllImport("libproc4unityarm64.so", EntryPoint = "ProcRedirectOutput", CharSet = CharSet.Auto)]
+		private static void Process_RedirectOutput(IntPtr handle, IntPtr outputStream);
+
+		[DllImport("libproc4unityarm64.so", EntryPoint = "ProcKill")]
+		private static bool Process_Kill(IntPtr handle);
 #endif
 #endif
 		#endregion
@@ -104,14 +114,17 @@ namespace Team123it.ProcessForUnity
 
 		public int GetExitCode() => Process_GetExitCode(m_handle);
 		
-		public void RedirectInput(Stream inputStream)
+		public void RedirectInput(MemoryStreamPlus inputStream)
 		{
-			Process_RedirectInput(m_handle, inputStream);
+			Process_RedirectInput(m_handle, inputStream.GetPointer());
 		}
 
-		public void RedirectOutput(Stream outputStream)
+		public void RedirectOutput(MemoryStreamPlus outputStream)
 		{
-			Process_RedirectOutput(m_handle, outputStream);
+			Process_RedirectOutput(m_handle, outputStream.GetPointer());
 		}
+
+		/// <returns><see langword="true" /> if the process was successfully killed, otherwise <see langword="false" /> .</returns>
+		public bool Kill() => Process_Kill(m_handle);
 	}
 }
