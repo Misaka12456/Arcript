@@ -61,5 +61,10 @@ namespace System.Enhance
 				i++;
 			}
 		}
+
+		public static bool InValues<T>(this T tryValue, params T[] values)
+		{
+			return values.Contains(tryValue);
+		}
 	}
 }
