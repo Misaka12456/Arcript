@@ -1,4 +1,4 @@
-﻿using Arcript.Aspt.RawArcVNScripts;
+﻿using Arcript.Aspt;
 using Arcript.Compose.Inspectors;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +15,7 @@ namespace Arcript.Compose
 		public Text labelIsBlockCmdSign;
 		
 		[SerializeField]
-		private ArcVNScriptCmdBase refCmd;
+		private AsptCmdBase refCmd;
 
 		private void Awake()
 		{
@@ -41,6 +41,13 @@ namespace Arcript.Compose
 			labelIsBlockCmdSign.color = isBlock ? Color.white : Transparent;
 
 			parentGroup.RegisterToggle(toggleChoosing); // == toggleChoosing.group = parentGroup;
+		}
+
+		public void UpdateInfo(AsptCmdBase newCmd)
+		{
+			labelCmdText.text = newCmd.ToItemShortString();
+
+			labelIsBlockCmdSign.color = newCmd.IsBlock ? Color.white : Transparent;
 		}
 	}
 }

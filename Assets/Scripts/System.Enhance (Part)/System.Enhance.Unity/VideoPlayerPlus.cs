@@ -1,4 +1,7 @@
-﻿#pragma warning disable IDE1006
+﻿// System.Enhance Utility Library for Unity
+// (C)Copyright 2015-2023 123 Open-Source Organization. All rights reserved.
+// Licensed under '123 Open-Source Organizaiton MIT Public License 2.0'.
+#pragma warning disable IDE1006
 using UnityEngine;
 using UnityEngine.UI;                                   // for ugui components
 using VideoPlayerv1 = UnityEngine.Video.VideoPlayer;    // for video player
@@ -6,22 +9,31 @@ using Cysharp.Threading.Tasks;                          // for async/await (UniT
 using UnityEngine.Video;
 using System.Text;
 using UnityEngine.Events;
-using System.Threading;
-using System.Collections;
 using DG.Tweening;
+using UnityEditor;
+using ResUnity = UnityEngine.Resources;
+using UnityEngine.EventSystems;
 #if UNITY_EDITOR
 #endif
 
 namespace System.Enhance.Unity
 {
 	/// <summary>
-	/// A enhanced UGUI video player (Video Player+) that can play video from url or local path.
+	/// A enhanced UGUI video player (Video Player+) that can play video from url or local path with secondary development features.<br />
+	/// Note: Use <see cref="PlayPlusAsync"/> instead of <see cref="Play" /> to enable secondary development features.
 	/// </summary>
 	[RequireComponent(typeof(VideoPlayerv1))] // main player
 	[RequireComponent(typeof(RawImage))] // video target
 	[RequireComponent(typeof(AudioSource))] // audio target
-	public class VideoPlayerPlus : MonoBehaviour
+	[AddComponentMenu("System.Enhance Utility Library for Unity/Video Player+")]
+	public class VideoPlayerPlus : MonoBehaviour, IPointerDownHandler
 	{
+		/// <summary>
+		/// The white-based transparent color. <br />
+		/// Different from <see cref="Color.clear" />, this color is white-based (<see cref="Color.clear" /> is black-based).
+		/// </summary>
+		public static readonly Color Transparent = new Color(1, 1, 1, 0);
+
 		/// <summary>
 		/// Is the video playing?
 		/// </summary>
@@ -61,6 +73,8 @@ namespace System.Enhance.Unity
 		/// For more information, see <seealso cref="beforeFadeInDuration"/>.
 		/// </summary>
 		[Header("Secondary Development")]
+		[SerializeField] private bool m_playOnAwake = false;
+
 		[SerializeField] private Color beforeStartFromColor;
 
 		/// <summary>
@@ -131,6 +145,8 @@ namespace System.Enhance.Unity
 		/// </summary>
 		[SerializeField] private float afterFadeOutDuration;
 		[SerializeField] private Image m_imgBackground;
+		[SerializeField] private GraphicRaycaster m_grBlocker;
+		[SerializeField] private bool m_skipOnClickOrEsc = false;
 
 		/// <summary>
 		/// Occurs when the video is ready to play.<br />
@@ -148,6 +164,7 @@ namespace System.Enhance.Unity
 		public UnityEvent<string, long> onVideoPlayFinish; // params[0] = videoPath, [1] = videoLength (in ms)
 		private bool m_isReady = false;
 		private bool m_isPlaying = false;
+		private bool m_isSkipRequested = false;
 
 		private void Awake()
 		{
@@ -157,6 +174,19 @@ namespace System.Enhance.Unity
 
 			onVideoReady ??= new UnityEvent<string, Vector2, float, long>();
 			onVideoPlayFinish ??= new UnityEvent<string, long>();
+		}
+
+		private void Start()
+		{
+			if (m_playOnAwake)
+			{
+				Load(urlVideoPath);
+				UniTask.Create(async () =>
+				{
+					await UniTask.WaitUntil(() => m_playerParent.isPrepared);
+					await PlayPlusAsync();
+				});
+			}
 		}
 
 		public bool Load(string videoPath)
@@ -280,14 +310,20 @@ namespace System.Enhance.Unity
 
 			if (afterEndToColor == null) afterEndToColor = beforeStartFromColor;
 
+			if (m_grBlocker != null)
+			{
+				m_grBlocker.enabled = true;
+			}
+
 			// 设置视频目标RawImage为Transparent
 			m_imgVideoTarget.color = new Color(1, 1, 1, 0);
 
 			if (beforeFadeInDuration < 0)
 			{
 				m_playerParent.Play();
+				m_isPlaying = true;
 			}
-			
+
 			// 从黑色淡入背景
 			m_imgBackground.color = beforeStartFromColor;
 			m_imgBackground.DOColor(beforeStartToColor, Mathf.Abs(beforeFadeInDuration));
@@ -296,45 +332,98 @@ namespace System.Enhance.Unity
 			if (beforeFadeInDuration >= 0)
 			{
 				m_playerParent.Play();
+				m_isPlaying = true;
 			}
-			
+
 			await UniTask.DelayFrame(1);
 			m_imgVideoTarget.color = Color.white;
-			
+
 			if (afterFadeOutDuration < 0)
 			{
-				await UniTask.WaitUntil(() => m_playerParent.time >= m_playerParent.length);
-				m_playerParent.Stop();
-				await UniTask.Delay(TimeSpan.FromSeconds(Mathf.Abs(afterFadeOutDuration)));
+				await UniTask.WaitUntil(() => m_playerParent.time >= m_playerParent.length || (m_skipOnClickOrEsc && m_isSkipRequested));
+				if (!m_skipOnClickOrEsc || !m_isSkipRequested)
+				{
+					m_playerParent.Stop();
+					await UniTask.Delay(TimeSpan.FromSeconds(Mathf.Abs(afterFadeOutDuration)));
+				}
 			}
 			else
 			{
-				await UniTask.WaitUntil(() => m_playerParent.time >= (m_playerParent.length - afterFadeOutDuration));
+				await UniTask.WaitUntil(() => m_playerParent.time >= (m_playerParent.length - afterFadeOutDuration) || (m_skipOnClickOrEsc && m_isSkipRequested));
 			}
 
-			// 从视频淡出到背景(结束颜色)
-			m_imgBackground.color = afterEndFromColor;
-			m_imgVideoTarget.DOColor(new Color(1, 1, 1, 0), afterFadeOutDuration / 2f);
-			await UniTask.Delay((int)(afterFadeOutDuration * 500));
-
-			// 设置视频目标RawImage为Transparent
-			await UniTask.DelayFrame(1);
-			if (afterFadeOutDuration > 0)
+			if (m_skipOnClickOrEsc && m_isSkipRequested)
 			{
-				m_playerParent.Stop();
+				_ = UniTask.Create(async () =>
+				{
+					for (float v = 1; v >= 0; v -= 0.05f)
+					{
+						m_sourceAudioTarget.volume = v;
+						await UniTask.Delay(TimeSpan.FromSeconds(afterFadeOutDuration / 2f / 20f));
+					}
+					await UniTask.DelayFrame(1);
+				});
 			}
-			m_imgVideoTarget.color = new Color(1, 1, 1, 0);
 
-			// 从结束颜色的背景淡入到黑色
-			m_imgBackground.DOColor(afterEndToColor, afterFadeOutDuration / 2f);
-			await UniTask.Delay((int)(afterFadeOutDuration * 500));
+			if (m_skipOnClickOrEsc && m_isSkipRequested)
+			{
+				m_imgBackground.color = afterEndToColor;
+				m_imgVideoTarget.DOColor(new Color(1, 1, 1, 0), afterFadeOutDuration / 2f);
+				await UniTask.Delay((int)(afterFadeOutDuration * 500));
 
-			// 清空视频目标RawImage并将颜色复原，然后隐藏掉背景
-			m_rtVideoBaseTarget.Clear(afterEndToColor);
-			m_imgVideoTarget.color = Color.white;
-			await UniTask.DelayFrame(1);
-			
-			m_imgBackground.gameObject.SetActive(false);
+				await UniTask.DelayFrame(1);
+				m_playerParent.Stop();
+				m_sourceAudioTarget.volume = 1;
+
+				// 清空视频目标RawImage并将颜色复原，然后隐藏掉背景
+				m_rtVideoBaseTarget.Clear(afterEndToColor);
+
+				var tp = afterEndToColor;
+				tp.a = 0;
+				m_imgVideoTarget.color = tp;
+				await UniTask.DelayFrame(1);
+
+				m_imgBackground.DOColor(tp, afterFadeOutDuration / 2f);
+				await UniTask.Delay((int)(afterFadeOutDuration * 500));
+
+				m_imgBackground.color = m_imgVideoTarget.color = Transparent;
+			}
+			else
+			{
+				// 从视频淡出到背景(结束颜色)
+				m_imgBackground.color = afterEndFromColor;
+				m_imgVideoTarget.DOColor(new Color(1, 1, 1, 0), afterFadeOutDuration / 2f);
+				await UniTask.Delay((int)(afterFadeOutDuration * 500));
+
+				// 设置视频目标RawImage为Transparent
+				await UniTask.DelayFrame(1);
+				if (afterFadeOutDuration > 0)
+				{
+					m_playerParent.Stop();
+				}
+				m_imgVideoTarget.color = new Color(1, 1, 1, 0);
+
+				// 从结束颜色的背景淡入到黑色
+				m_imgBackground.DOColor(afterEndToColor, afterFadeOutDuration / 2f);
+				await UniTask.Delay((int)(afterFadeOutDuration * 500));
+
+				var tp = afterEndToColor;
+				tp.a = 0;
+
+				// 清空视频目标RawImage并将颜色复原，然后隐藏掉背景
+				m_rtVideoBaseTarget.Clear(afterEndToColor);
+				m_imgVideoTarget.color = tp;
+				await UniTask.DelayFrame(1);
+
+				m_imgBackground.DOColor(tp, afterFadeOutDuration / 2f);
+				await UniTask.Delay((int)(afterFadeOutDuration * 500));
+
+				m_imgBackground.color = m_imgVideoTarget.color = Transparent;
+			}
+			if (m_grBlocker != null)
+			{
+				m_grBlocker.enabled = false;
+			}
 		}
 
 		/// <summary>
@@ -392,5 +481,38 @@ namespace System.Enhance.Unity
 		{
 			CloseInternal();
 		}
+
+#if UNITY_EDITOR
+		[MenuItem("GameObject/Video/Video Player+ (uGUI) (System.Enhance)", false, 2)]
+		[MenuItem("GameObject/UI/Video Player+ (System.Enhance)", false, -19)]
+		static void AddVideoPlayer()
+		{
+			var parent = Selection.activeGameObject;
+
+			var child = Instantiate(ResUnity.Load<GameObject>("Prefabs/VideoPlayer+"), parent.transform);
+
+			var bg = child.GetComponentInChildren<Image>();
+
+			var vpPlus = child.GetComponentInChildren<VideoPlayerPlus>();
+
+			bg.color = Transparent;
+
+			child.name = "Panel Video Player+";
+
+			bg.gameObject.name = "SpriteBackground";
+			vpPlus.gameObject.name = "VideoPlayer+";
+		}
+
+		public void OnPointerDown(PointerEventData eventData)
+		{
+			if (!m_isPlaying) return;
+			if (!m_skipOnClickOrEsc) return;
+			if (m_isSkipRequested) return;
+			if (eventData.eligibleForClick)
+			{
+				m_isSkipRequested = true;
+			}
+		}
+#endif
 	}
 }
