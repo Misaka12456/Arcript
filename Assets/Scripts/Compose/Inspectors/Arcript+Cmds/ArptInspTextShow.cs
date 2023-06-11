@@ -35,6 +35,7 @@ namespace Arcript.Compose.Inspectors
 		{
 			base.SetInfo(command, parent); // 检查类型是否匹配(之后parent会存到parentItem, command会转为AsptTextShowCmd后存到cmd)
 			inputSpeakerName.SetTextWithoutNotify(cmd.Speaker);
+
 			inputSayText.SetTextWithoutNotify(cmd.Content);
 			toggleFallbackToLegacyText.SetIsOnWithoutNotify(cmd.FallbackToLegacy);
 		}
@@ -42,6 +43,13 @@ namespace Arcript.Compose.Inspectors
 		public override void Apply(object tag = null)
 		{
 			parentItem.UpdateInfo(cmd);
+		}
+
+		public override void InitNewInfo()
+		{
+			inputSpeakerName.SetTextWithoutNotify(string.Empty);
+			inputSayText.SetTextWithoutNotify("「おはようございます」");
+			toggleFallbackToLegacyText.SetIsOnWithoutNotify(false);
 		}
 	}
 }

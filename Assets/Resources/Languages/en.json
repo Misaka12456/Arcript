@@ -85,6 +85,30 @@
 		},
 		"compose.scriptEditing.ops.general.buildScript": {
 			"value": "Build"
+		},
+		"compose.dialogs.rawCodeEdit.title": {
+			"value": "Edit raw aspt (yaml) data of {0}"
+		},
+		"compose.dialogs.rawCodeEdit.description": {
+			"value": "Please make sure your edited data still conforms to the aspt and basic yaml format, otherwise it will not be saved"
+		},
+		"compose.dialogs.rawCodeEdit.save.checkFailed": {
+			"value": "Format check failed, please fix the problem before saving\n{0}"
+		},
+		"compose.dialogs.rawCodeCreate.title": {
+			"value": "Create new {0} with raw aspt (yaml) data"
+		},
+		"compose.dialogs.rawCodeCreate.placeholder": {
+			"value": "Please input the raw code as aspt (yaml) format, i.e.:\n!AsptTextShowCmd\n Type: 'say+'\nBlock: true\nSpeakerName: ''\nContent: 'I met an angel for the first time that summer.'\n......"
+		},
+		"compose.dialogs.rawCodeCreate.confirm": {
+			"value": "Are you sure you want to create a {0} command with the input raw code?\nIf the detected command type is incorrect, please click \"No\" and modify the tag of the raw aspt (yaml) code"
+		},
+		"compose.script.closeNotSave.title": {
+			"value": "Save changes to the following items?"
+		},
+		"compose.script.closeNotSave": {
+			"value": "{0}\n-   {1}\n    {2}"
 		}
 	}
 }

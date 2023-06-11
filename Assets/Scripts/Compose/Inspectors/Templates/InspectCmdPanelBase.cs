@@ -85,5 +85,7 @@ namespace Arcript.Compose.Inspectors
 		}
 
 		public abstract void Apply(object tag = null);
+
+		public abstract void InitNewInfo();
 	}
 }

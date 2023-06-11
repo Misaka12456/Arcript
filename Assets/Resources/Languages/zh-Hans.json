@@ -74,6 +74,24 @@
 		"compose.scriptEditing.ops.general.buildScript": {
 			"value": "构建脚本"
 		},
+		"compose.dialogs.rawCodeEdit.title": {
+			"value": "编辑 {0} 原始aspt(yaml)数据"
+		},
+		"compose.dialogs.rawCodeEdit.description": {
+			"value": "请确保您编辑后的数据仍符合aspt及基本yaml格式，否则将无法保存"
+		},
+		"compose.dialogs.rawCodeEdit.save.checkFailed": {
+			"value": "检测到格式问题，请修复问题后再尝试保存\n{0}"
+		},
+		"compose.dialogs.rawCodeCreate.title": {
+			"value": "使用原始aspt(yaml)数据创建新的 {0}"
+		},
+		"compose.dialogs.rawCodeCreate.placeholder": {
+			"value": "请按照aspt的yaml格式输入原始代码，例如:\n!AsptTextShowCmd\n Type: 'say+'\nBlock: true\nSpeakerName: ''\nContent: '——那个夏日，我第一次见到了天使。'\n......"
+		},
+		"compose.dialogs.rawCodeCreate.confirm": {
+			"value": "您确定要使用输入的原始代码创建 {0} 类型的指令吗？\n若检测到的指令类型不正确，请单击\"否\"，并修改原始aspt(yaml)代码的tag"
+		},
 		"compose.script.closeNotSave.title": {
 			"value": "是否保存对以下项所做的更改？"
 		},

@@ -273,5 +273,22 @@ namespace Arcript.Compose.Inspectors
 		{
 			parentItem.UpdateInfo(cmd);
 		}
+
+		public override void InitNewInfo()
+		{
+			inputPicturePath.SetTextWithoutNotify(string.Empty);
+			btnSelectPicture.interactable = true;
+			inputSizeWidth.SetTextWithoutNotify("100");
+			inputSizeHeight.SetTextWithoutNotify("100");
+			inputStartPointX.SetTextWithoutNotify("0");
+			inputStartPointY.SetTextWithoutNotify("0");
+			inputScaleX.SetTextWithoutNotify("1");
+			inputScaleY.SetTextWithoutNotify("1");
+			drplstTransType.SetValueWithoutNotify(0);
+			drplstCurveType.SetValueWithoutNotify(0);
+			inputTransDuration.SetTextWithoutNotify("0.5");
+			inputLayer.SetTextWithoutNotify("default");
+			toggleScaleToWidth.SetIsOnWithoutNotify(false);
+		}
 	}
 }

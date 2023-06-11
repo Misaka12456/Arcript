@@ -42,5 +42,12 @@ namespace Arcript.Compose.Inspectors
 		{
 			parentItem.UpdateInfo(cmd);
 		}
+
+		public override void InitNewInfo()
+		{
+			inputSpeakerBoxBgPath.SetTextWithoutNotify(string.Empty);
+			inputMessageBoxBgPath.SetTextWithoutNotify(string.Empty);
+			btnSelectMessageBoxBg.interactable = btnSelectSpeakerBoxBg.interactable = true;
+		}
 	}
 }

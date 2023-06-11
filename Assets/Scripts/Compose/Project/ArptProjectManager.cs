@@ -32,10 +32,9 @@ namespace Arcript.Compose
 			"Resources", "Scripts", "Build"
 		};
 
-		private static readonly IYamlTypeConverter[] Converters = new IYamlTypeConverter[]
+		public static readonly IYamlTypeConverter[] Converters = new IYamlTypeConverter[]
 		{
-			new ColorYamlConverter(), new DescStr2EnumConverter<AsptCmdType>(), new DescStr2EnumConverter<CurveType>(),
-			new Vector2YamlConverter(), DictionaryYamlConverter<object>.String
+			new ColorYamlConverter(), new Vector2YamlConverter()
 		};
 		
 		[HideInInspector] public ArcriptProject CurrentProject;
