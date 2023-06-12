@@ -9,10 +9,13 @@ namespace Arcript.Compose.Inspectors
 
 		public string CmdTypeName { get; private set; }
 
-		public CmdInspectExportAttribute(Type cmdModelType, string typeName)
+		public string CmdFriendlyName { get; private set; }
+
+		public CmdInspectExportAttribute(Type cmdModelType, string typeName, string shownName)
 		{
 			CmdModelType = cmdModelType;
 			CmdTypeName = typeName;
+			CmdFriendlyName = shownName;
 		}
 	}
 }

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptTextShowCmd), "say+")]
+	[CmdInspectExport(typeof(AsptTextShowCmd), "say+", "Arcript+ Text Show (v2)")]
 	public class ArptInspTextShow : InspectCmdPanelBase<AsptTextShowCmd>
 	{
 		[Header("UI")]

@@ -104,6 +104,27 @@
 		"compose.dialogs.rawCodeCreate.confirm": {
 			"value": "Are you sure you want to create a {0} command with the input raw code?\nIf the detected command type is incorrect, please click \"No\" and modify the tag of the raw aspt (yaml) code"
 		},
+		"compose.dialogs.fileSelect.img.title": {
+			"value": "Select an image file"
+		},
+		"compose.dialogs.fileSelect.img.filter": {
+			"value": "Image File"
+		},
+		"compose.dialogs.fileSelect.video.title": {
+			"value": "Select a video file"
+		},
+		"compose.dialogs.fileSelect.video.filter": {
+			"value": "Video File"
+		},
+		"compose.dialogs.fileSelect.audio.title.limited": {
+			"value": "Select an audio file* (*Arcript+ features limited)"
+		},
+		"compose.dialogs.fileSelect.audio.title": {
+			"value": "Select an audio file"
+		},
+		"compose.dialogs.fileSelect.audio.filter": {
+			"value": "Audio File"
+		},
 		"compose.script.closeNotSave.title": {
 			"value": "Save changes to the following items?"
 		},

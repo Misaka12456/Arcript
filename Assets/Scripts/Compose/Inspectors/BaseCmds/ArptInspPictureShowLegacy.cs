@@ -3,7 +3,6 @@ using Arcript.Compose.UI;
 using Arcript.I18n;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using SFB; // Standalone File Browser (gkngkc/UnityStandaloneFileBrowser [-> GitHub])
@@ -11,8 +10,8 @@ using System.IO;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptPictureShowCmd), "show", "Arcript+ Picture Show (v2)")]
-	public class ArptInspPictureShow : InspectCmdPanelBase<AsptPictureShowCmd>
+	[CmdInspectExport(typeof(AsptPictureShowCmd), "show", "Arcript Picture Show (Legacy)")]
+	public class ArptInspPictureShowLegacy : InspectCmdPanelBase<AsptPictureShowLegacyCmd>
 	{
 		public const int MaxLayerNameLength = 32;
 
@@ -29,7 +28,6 @@ namespace Arcript.Compose.Inspectors
 		public InputField inputTransDuration;
 
 		[Header("Settings")]
-		public InputField inputLayer;
 		public Toggle toggleScaleToWidth;
 
 		protected override void InspectorAwake()
@@ -140,7 +138,7 @@ namespace Arcript.Compose.Inspectors
 
 			drplstTransType.AddOptions(transOptions);
 			drplstCurveType.AddOptions(curveOptions);
-
+			
 			drplstTransType.onValueChanged.AddListener((idx) =>
 			{
 				string str = drplstTransType.options[idx].text;
@@ -156,7 +154,7 @@ namespace Arcript.Compose.Inspectors
 				cmd.Transition.Curve = type;
 				Apply();
 			});
-
+			
 			inputTransDuration.SetTextWithoutNotify("0.5");
 			inputTransDuration.onValueChanged.AddListener((value) =>
 			{
@@ -169,23 +167,6 @@ namespace Arcript.Compose.Inspectors
 					inputTransDuration.SetTextWithoutNotify("0");
 					cmd.Transition.Duration = 0;
 				}
-				Apply();
-			});
-			#endregion
-
-			#region layer
-			inputLayer.SetTextWithoutNotify("default");
-			inputLayer.onValueChanged.AddListener((value) =>
-			{
-				if (string.IsNullOrWhiteSpace(value))
-				{
-					value = "default";
-				}
-				else if (value.Length > MaxLayerNameLength)
-				{
-					value = value.Substring(0, MaxLayerNameLength);
-				}
-				cmd.Layer = value;
 				Apply();
 			});
 			#endregion
@@ -289,12 +270,12 @@ namespace Arcript.Compose.Inspectors
 			#region imagePath
 			inputPicturePath.SetTextWithoutNotify(cmd.ImagePath);
 			#endregion
-			
+
 			#region size
 			inputSizeWidth.SetTextWithoutNotify(cmd.Size.x.ToString());
 			inputSizeHeight.SetTextWithoutNotify(cmd.Size.y.ToString());
 			#endregion
-			
+
 			#region startPoint
 			inputStartPointX.SetTextWithoutNotify(cmd.StartPoint.x.ToString());
 			inputStartPointY.SetTextWithoutNotify(cmd.StartPoint.y.ToString());
@@ -322,11 +303,7 @@ namespace Arcript.Compose.Inspectors
 			inputTransDuration.SetTextWithoutNotify(cmd.Transition.Duration.ToString());
 			#endregion
 			#endregion
-
-			#region layer
-			inputLayer.SetTextWithoutNotify(cmd.Layer);
-			#endregion
-
+			
 			#region scaleToWidth
 			toggleScaleToWidth.SetIsOnWithoutNotify(cmd.ScaleToWidth);
 			#endregion
@@ -350,7 +327,6 @@ namespace Arcript.Compose.Inspectors
 			drplstTransType.SetValueWithoutNotify(0);
 			drplstCurveType.SetValueWithoutNotify(0);
 			inputTransDuration.SetTextWithoutNotify("0.5");
-			inputLayer.SetTextWithoutNotify("default");
 			toggleScaleToWidth.SetIsOnWithoutNotify(false);
 		}
 	}

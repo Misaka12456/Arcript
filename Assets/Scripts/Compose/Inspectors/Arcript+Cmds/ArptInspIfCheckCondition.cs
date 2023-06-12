@@ -1,5 +1,6 @@
 ﻿using Arcript.Aspt;
 using Arcript.Compose.Dialogs;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,16 +39,16 @@ namespace Arcript.Compose.Inspectors
 			m_parentPanel = parent;
 			labelReqExpression.text = "<new>";
 
-			var saveCallback = (object result) =>
+			var saveCallback = new Action<object>((object result) =>
 			{
 				var cmd = result as AsptVarCheckCmd;
 				SaveCallback(cmd, true);
-			};
+			});
 
-			var discardCallback = () =>
+			var discardCallback = new Action(() =>
 			{
 				m_parentPanel.OnConditionChanged(this, isRemove: true);
-			};
+			});
 
 			ArptRawCmdEditDialog.Instance.ShowDialogAsNewCmd(saveCallback, discardCallback);
 		}

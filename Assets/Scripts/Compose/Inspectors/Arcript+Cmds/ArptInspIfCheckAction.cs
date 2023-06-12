@@ -1,5 +1,6 @@
 ﻿using Arcript.Aspt;
 using Arcript.Compose.Dialogs;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,10 +29,10 @@ namespace Arcript.Compose.Inspectors
 				var showDialogMethod = typeof(ArptRawCmdEditDialog).GetMethod("ShowDialog");
 				var genericMethod = showDialogMethod.MakeGenericMethod(new[] { cmdActualType });
 
-				var saveCallback = (object obj) =>
+				var saveCallback = new Action<object>((object obj) =>
 				{
 					SaveCallback(obj, isTrueCmd);
-				}; // saveCallback.GetType() == Action<object>
+				}); // saveCallback.GetType() == Action<object>
 				genericMethod.Invoke(ArptRawCmdEditDialog.Instance, new object[] { cmd, saveCallback });
 				// --------------
 			});
@@ -52,15 +53,15 @@ namespace Arcript.Compose.Inspectors
 			labelActionCmdShortInfo.text = "<new>";
 			isTrueCmd = isTrue;
 
-			var saveCallback = (object obj) =>
+			var saveCallback = new Action<object>((object obj) =>
 			{
 				SaveCallback(obj, isTrue);
-			};
+			});
 
-			var discardCallback = () =>
+			var discardCallback = new Action(() =>
 			{
 				m_parentPanel.OnActionChanged(this, isTrue: isTrueCmd, isRemove: true);
-			};
+			});
 
 			ArptRawCmdEditDialog.Instance.ShowDialogAsNewCmd(saveCallback, discardCallback);
 		}

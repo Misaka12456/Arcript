@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptAnchorCmd), "anchor")]
+	[CmdInspectExport(typeof(AsptAnchorCmd), "anchor", "Arcript+ Script Anchor")]
 	public class ArptInspAnchor : InspectCmdPanelBase<AsptAnchorCmd>
 	{
 		[Header("General")]

@@ -18,7 +18,7 @@ namespace Arcript.Compose.UI
 		// key = (扩展名, 同扩展名的优先级)
 		// value = 通过反射创建的对应的格式解析器 (ICustomImageFormat) 的实例
 		public static Dictionary<(string, int), ICustomImageFormat> CustomImageFileExt = new Dictionary<(string, int), ICustomImageFormat>();
-		private readonly static string[] ImageFileExt = new string[]
+		public readonly static string[] ImageFileExt = new string[]
 		{
 			".png", ".jpg", ".jpeg", ".bmp", ".gif", ".tiff",
 		};

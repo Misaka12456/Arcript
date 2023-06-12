@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptBranchSelectCmd), "selectSay")]
+	[CmdInspectExport(typeof(AsptBranchSelectCmd), "selectSay", "Arcript+ Branch Select")]
 	public class ArptInspBranchSelect : InspectCmdPanelBase<AsptBranchSelectCmd>
 	{
 		public InputField inputSelectTip;

@@ -95,6 +95,33 @@
 		"compose.script.closeNotSave.title": {
 			"value": "是否保存对以下项所做的更改？"
 		},
+		"compose.dialogs.fileSelect.img.title": {
+			"value": "选择图片文件"
+		},
+		"compose.dialogs.fileSelect.img.title.speakerBoxBg": {
+			"value": "选择\"发言者\"框背景图片文件"
+		},
+		"compose.dialogs.fileSelect.img.title.msgBoxBg": {
+			"value": "选择\"对话内容\"框背景图片文件"
+		},
+		"compose.dialogs.fileSelect.img.filter": {
+			"value": "图片文件"
+		},
+		"compose.dialogs.fileSelect.video.title": {
+			"value": "选择视频文件"
+		},
+		"compose.dialogs.fileSelect.video.filter": {
+			"value": "视频文件"
+		},
+		"compose.dialogs.fileSelect.audio.title.limited": {
+			"value": "选择音频文件* (*Arcript+特性受限)"
+		},
+		"compose.dialogs.fileSelect.audio.title": {
+			"value": "选择音频文件"
+		},1
+		"compose.dialogs.fileSelect.audio.filter": {
+			"value": "音频文件"
+		},
 		"compose.script.closeNotSave": {
 			"value": "{0}\n-   {1}\n    {2}"
 		}
