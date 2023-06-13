@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptLabelCmd), "label", "Arcript+ Script Label")]
+	[CmdInspectExport(typeof(AsptLabelCmd), "label", "Arcript+ Script Label","Resources/Prefabs/Editor/Inspectors/label")]
 	public class ArptInspLabel : InspectCmdPanelBase<AsptLabelCmd>
 	{
 		public InputField inputLabelName;

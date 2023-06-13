@@ -23,6 +23,9 @@
 		"compose.browser.tree.loadFirstTip": {
 			"value": "Please load project first"
 		},
+		"compose.sideright.inspector.arpt+onlyLimited": {
+			"value": "This command is an Arcript+ feature command, but the Arcript+ feature is not enabled in this project.\nDo you want to enable the Arcript+ feature of this project and reload the command inspector?\nNote: After enabling the Arcript+ feature, it will not be possible to compile to Arcaea pure text script (.vns) format"
+		},
 		"compose.sideright.inspector.title": {
 			"value": "Inspector"
 		},
@@ -86,6 +89,9 @@
 		"compose.scriptEditing.ops.general.buildScript": {
 			"value": "Build"
 		},
+		"compose.dialogs.arpt+onlylimited.title": {
+			"value": "Arcript+ Feature Command Limited"
+		},
 		"compose.dialogs.rawCodeEdit.title": {
 			"value": "Edit raw aspt (yaml) data of {0}"
 		},
@@ -124,6 +130,15 @@
 		},
 		"compose.dialogs.fileSelect.audio.filter": {
 			"value": "Audio File"
+		},
+		"compose.dialogs.error.title": {
+			"value": "Error"
+		},
+		"compose.dialogs.error.cmdInspNotFound": {
+			"value": "Cannot find corresponding inspector for command type \"{0}\""
+		},
+		"compose.dialogs.error.cmdInspNotFound.prefab": {
+			"value": "Cannot find corresponding inspector prefab for command type \"{0}\""
 		},
 		"compose.script.closeNotSave.title": {
 			"value": "Save changes to the following items?"

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptAudioPlayCmd), "play", "Arcript Audio Play")]
+	[CmdInspectExport(typeof(AsptAudioPlayCmd), "play", "Arcript Audio Play", "Resources/Prefabs/Editor/Inspectors/play")]
 	public class ArptInspAudioPlay : InspectCmdPanelBase<AsptAudioPlayCmd>
 	{
 		[Header("Audio")]

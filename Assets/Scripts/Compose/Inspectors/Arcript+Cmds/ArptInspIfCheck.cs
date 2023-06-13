@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptIfCheckCmd), "if", "Arcript+ Script If Check")]
+	[CmdInspectExport(typeof(AsptIfCheckCmd), "if", "Arcript+ Script If Check", "Resources/Prefabs/Editor/Inspectors/if")]
 	public class ArptInspIfCheck : InspectCmdPanelBase<AsptIfCheckCmd>
 	{
 		[Header("General")]

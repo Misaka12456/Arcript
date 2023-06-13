@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptTextv2SettingsCmd), "say+set", "Arcript+ Text Show v2 Settings")]
+	[CmdInspectExport(typeof(AsptTextv2SettingsCmd), "say+set", "Arcript+ Text Show v2 Settings", "Resources/Prefabs/Editor/Inspectors/say+set")]
 	public class ArptInspTextv2Settings : InspectCmdPanelBase<AsptTextv2SettingsCmd>
 	{
 		public InputField inputSpeakerBoxBgPath;

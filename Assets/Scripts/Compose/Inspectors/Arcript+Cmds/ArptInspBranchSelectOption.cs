@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace Arcript.Compose.Inspectors
 {
 
-	[CmdInspectExport(typeof(AsptBranchSelectOptionCmd), "select", "Arcript+ Branch Select Option")]
+	[CmdInspectExport(typeof(AsptBranchSelectOptionCmd), "select", "Arcript+ Branch Select Option", "Resources/Prefabs/Editor/Inspectors/select")]
 	public class ArptInspBranchSelectOption : MonoBehaviour
 	{
 		public InputField inputOptionId;

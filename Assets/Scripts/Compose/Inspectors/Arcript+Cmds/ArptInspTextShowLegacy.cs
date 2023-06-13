@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptTextLegacyShowCmd), "say", "Arcript+ Text Show (Legacy)")]
+	[CmdInspectExport(typeof(AsptTextLegacyShowCmd), "say", "Arcript+ Text Show (Legacy)", "Resources/Prefabs/Editor/Inspectors/say")]
 	public class ArptInspTextShowLegacy : InspectCmdPanelBase<AsptTextLegacyShowCmd>
 	{
 		public InputField inputSayText;

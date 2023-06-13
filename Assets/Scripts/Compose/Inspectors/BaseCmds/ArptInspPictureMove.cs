@@ -10,7 +10,7 @@ using Arcript.Compose.UI;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptPictureMoveCmd), "move", "Arcript Picture Move")]
+	[CmdInspectExport(typeof(AsptPictureMoveCmd), "move", "Arcript Picture Move", "Resources/Prefabs/Editor/Inspectors/move")]
 	public class ArptInspPictureMove : InspectCmdPanelBase<AsptPictureMoveCmd>
 	{
 		[Header("Picture")]

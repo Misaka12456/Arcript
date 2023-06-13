@@ -1,8 +1,12 @@
+using Arcript.Data;
+using Arcript.I18n;
 using System;
 using System.Enhance.Unity;
+using System.Enhance.Unity.UI;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using MsgBoxType = System.Enhance.Unity.UI.MsgBoxDialog.MsgBoxType;
 
 namespace Arcript.Compose
 {
@@ -25,6 +29,18 @@ namespace Arcript.Compose
 		protected override void SingletonAwake()
 		{
 			AllowRepeatInit = true;
+			Application.logMessageReceived += Arcript_LogMessageReceived;
+		}
+
+		private void Arcript_LogMessageReceived(string condition, string stackTrace, LogType type)
+		{
+			if (type == LogType.Exception)
+			{
+				// 如果来源异常不是继承自或为ArcriptException，则直接忽略
+				if (stackTrace.IndexOf(nameof(ArcriptException)) < 0) return;
+				if (!ArcriptConfig.S.EnableGlobalErrorMsgBoxPopup) return;
+				MsgBoxDialog.Show(condition, I.S["compose.dialogs.error.title"].value, MsgBoxType.OKOnly | MsgBoxType.IconError);
+			}
 		}
 
 		public void SetTitle(string projName = "", string scriptName = "", bool pendingModify = false)

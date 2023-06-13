@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptPictureShowCmd), "show", "Arcript Picture Show (Legacy)")]
+	[CmdInspectExport(typeof(AsptPictureShowCmd), "show", "Arcript Picture Show (Legacy)", "Resources/Prefabs/Editor/Inspectors/show")]
 	public class ArptInspPictureShowLegacy : InspectCmdPanelBase<AsptPictureShowLegacyCmd>
 	{
 		public const int MaxLayerNameLength = 32;

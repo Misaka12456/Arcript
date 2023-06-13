@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptVarCheckCmd), "varCheck", "Arcript+ Script Variable Check")]
+	[CmdInspectExport(typeof(AsptVarCheckCmd), "varCheck", "Arcript+ Script Variable Check", "Resources/Prefabs/Editor/Inspectors/varCheck")]
 	public class ArptInspVarCheck : InspectCmdPanelBase<AsptVarCheckCmd>
 	{
 		public Text labelReqExpression;

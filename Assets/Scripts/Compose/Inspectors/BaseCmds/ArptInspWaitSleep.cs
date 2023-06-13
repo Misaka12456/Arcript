@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptWaitSleepCmd), "wait", "Arcript Script Wait/Sleep")]
+	[CmdInspectExport(typeof(AsptWaitSleepCmd), "wait", "Arcript Script Wait/Sleep", "Resources/Prefabs/Editor/Inspectors/wait")]
 	public class ArptInspWaitSleep : InspectCmdPanelBase<AsptWaitSleepCmd>
 	{
 		public InputField inputDuration;

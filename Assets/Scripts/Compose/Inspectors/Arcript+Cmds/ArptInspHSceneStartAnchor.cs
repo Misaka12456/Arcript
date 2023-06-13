@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptHSceneStartAnchorCmd), "anchorHSStart", "Arcript+ Script Anchor (HScene Start)")]
+	[CmdInspectExport(typeof(AsptHSceneStartAnchorCmd), "anchorHSStart", "Arcript+ Script Anchor (HScene Start)", "Resources/Prefabs/Editor/Inspectors/anchorHSStart")]
 	public class ArptInspHSceneStartAnchor : InspectCmdPanelBase<AsptHSceneStartAnchorCmd>
 	{
 		[Header("General")]

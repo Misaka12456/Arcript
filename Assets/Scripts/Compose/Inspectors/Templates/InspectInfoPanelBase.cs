@@ -2,7 +2,7 @@
 
 namespace Arcript.Compose.Inspectors
 {
-	public abstract class InpectInfoPanelBase : MonoBehaviour
+	public abstract class InspectInfoPanelBase : MonoBehaviour
 	{
 		public abstract GameObject TemplatePrefab { get; }
 

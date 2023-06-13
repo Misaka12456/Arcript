@@ -28,5 +28,21 @@ namespace System.Enhance.Unity
 				return mainVersion.ToString(fieldCount);
 			}
 		}
+
+		public static string BaseDirectory
+		{
+			get
+			{
+#if UNITY_EDITOR
+				string dataPath = Application.dataPath; // 编辑器模式下为$"{UnityProjPath}/Assets"
+				return new DirectoryInfo(dataPath).Parent.FullName;
+#elif UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_STANDALONE_LINUX
+				string dataPath = Application.dataPath; // 为$"{UnityBuildPath}/Arcript_Data"
+				return new DirectoryInfo(dataPath).Parent.FullName;
+#else
+				return Application.persistentDataPath;
+#endif
+			}
+		}
     }
 }

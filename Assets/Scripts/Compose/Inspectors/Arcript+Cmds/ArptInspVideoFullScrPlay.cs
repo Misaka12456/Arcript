@@ -14,7 +14,7 @@ namespace Arcript.Compose.Inspectors
 		Red = 0, Green = 1, Blue = 2, Alpha = 3
 	}
 
-	[CmdInspectExport(typeof(AsptVideoFullScrPlayCmd), "videoFSPlay", "Arcript+ Video Full Screen Play")]
+	[CmdInspectExport(typeof(AsptVideoFullScrPlayCmd), "videoFSPlay", "Arcript+ Video Full Screen Play", "Resources/Prefabs/Editor/Inspectors/videoFSPlay")]
 	public class ArptInspVideoFullScrPlay : InspectCmdPanelBase<AsptVideoFullScrPlayCmd>
 	{
 		public InputField inputVideoPath;

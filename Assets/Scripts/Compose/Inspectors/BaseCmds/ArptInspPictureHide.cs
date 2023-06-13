@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptPictureHideCmd), "hide", "Arcript Picture Hide")]
+	[CmdInspectExport(typeof(AsptPictureHideCmd), "hide", "Arcript Picture Hide", "Resources/Prefabs/Editor/Inspectors/hide")]
 	public class ArptInspPictureHide : InspectCmdPanelBase<AsptPictureHideCmd>
 	{
 		[Header("Picture")]

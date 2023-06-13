@@ -1,11 +1,12 @@
 ﻿using Arcript.Aspt;
 using System;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Arcript.Compose.Inspectors
 {
-	public abstract class InspectCmdPanelBase<T> : InpectInfoPanelBase where T : AsptCmdBase
+	public abstract class InspectCmdPanelBase<T> : InspectInfoPanelBase where T : AsptCmdBase
 	{
 		public override GameObject TemplatePrefab { get; }
 
@@ -81,6 +82,36 @@ namespace Arcript.Compose.Inspectors
 				Debug.LogWarning($"The method SetInfo<C> of type {GetType().Name} is not overrided. This usually means you forgot to override it.\n" +
 								  "The basic implementation of SetInfo<C> is only validate the command type and set the very-basic block status.\n" +
 								  "You need to override it with base.SetInfo() to set the main inspector panel data.");
+			}
+		}
+
+		public virtual void SetInfo(Type type, object command, ArptScriptCmdItem parentItem)
+		{
+			#region 反射实现: this.SetInfo<geneArg(type)>(command, parentItem);
+			// 通过反射调用SetInfo<C>方法
+			var method = GetType().GetMethod("SetInfo", new Type[] { typeof(object), typeof(ArptScriptCmdItem) });
+			method = method.MakeGenericMethod(type);
+			try
+			{
+				// 调用子类的SetInfo<C>方法
+				method.Invoke(this, new object[] { command, parentItem });
+			}
+			#endregion
+			catch (TargetInvocationException e)
+			{
+				#region 反射实现: base.SetInfo<geneArg(type)>(command, parentItem);
+				if (e.InnerException is MissingMethodException)
+				{
+					// 如果子类没有重写SetInfo<C>方法，则调用基类的SetInfo<C>方法
+					method = typeof(InspectCmdPanelBase<T>).GetMethod("SetInfo", new Type[] { typeof(object), typeof(ArptScriptCmdItem) });
+					method = method.MakeGenericMethod(type);
+					method.Invoke(this, new object[] { command, parentItem }); // 因为是virtual方法，所以父类必定有实现
+				}
+				#endregion
+				else
+				{
+					throw;
+				}
 			}
 		}
 

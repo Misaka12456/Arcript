@@ -10,7 +10,7 @@ using System;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptAudioStopCmd), "stop", "Arcript Audio Stop")]
+	[CmdInspectExport(typeof(AsptAudioStopCmd), "stop", "Arcript Audio Stop", "Resources/Prefabs/Editor/Inspectors/stop")]
 	public class ArptInspAudioStop : InspectCmdPanelBase<AsptAudioStopCmd>
 	{
 		[Header("Audio")]

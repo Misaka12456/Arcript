@@ -32,6 +32,9 @@
 		"compose.browser.tree.loadFirstTip": {
 			"value": "请先加载项目"
 		},
+		"compose.sideright.inspector.arpt+onlyLimited": {
+			"value": "该指令为Arcript+特性指令，但本项目并未启用Arcript+特性。\n是否启用本项目的Arcript+特性并重新加载指令检视面板(Inspector)？\n注意:启用Arcript+特性后将无法再编译为Arcaea纯文本脚本(.vns)格式"
+		},
 		"compose.sideright.inspector.title": {
 			"value": "检查器"
 		},
@@ -73,6 +76,9 @@
 		},
 		"compose.scriptEditing.ops.general.buildScript": {
 			"value": "构建脚本"
+		},
+		"compose.dialogs.arpt+onlylimited.title": {
+			"value": "Arcript+特性指令限制"
 		},
 		"compose.dialogs.rawCodeEdit.title": {
 			"value": "编辑 {0} 原始aspt(yaml)数据"
@@ -118,9 +124,18 @@
 		},
 		"compose.dialogs.fileSelect.audio.title": {
 			"value": "选择音频文件"
-		},1
+		},
 		"compose.dialogs.fileSelect.audio.filter": {
 			"value": "音频文件"
+		},
+		"compose.dialogs.error.title": {
+			"value": "错误"
+		},
+		"compose.dialogs.error.cmdInspNotFound": {
+			"value": "无法找到指令类型 \"{0}\" 对应的检视器"
+		},
+		"compose.dialogs.error.cmdInspNotFound.prefab": {
+			"value": "无法找到指令类型 \"{0}\" 对应的检视器Prefab"
 		},
 		"compose.script.closeNotSave": {
 			"value": "{0}\n-   {1}\n    {2}"

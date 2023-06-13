@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Arcript.Compose.Inspectors
 {
-	[CmdInspectExport(typeof(AsptVarDefineCmd), "var", "Arcript+ Script Variable Definition")]
+	[CmdInspectExport(typeof(AsptVarDefineCmd), "var", "Arcript+ Script Variable Definition", "Resources/Prefabs/Editor/Inspectors/var")]
 	public class ArptInspVarDefine : InspectCmdPanelBase<AsptVarDefineCmd>
 	{
 		public InputField inputVarName;
